@@ -1,0 +1,63 @@
+syntax = "v1"
+
+info(
+	title: "user object"
+	desc: "user object"
+	author: "GyuXiao"
+	version: "v1"
+)
+
+import (
+	"user/user.api"
+)
+
+// 定义服务和方法
+
+@server(
+	prefix: gyu_api/v1
+	group: user
+)
+
+service user {
+	@doc "userRegister"
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@doc "userLogin"
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+@server(
+	prefix: gyu_api/v1
+	group: user
+	jwt: Auth
+)
+service user {
+	@doc "get current user"
+	@handler current
+	get /user/current (CurrentUserReq) returns (CurrentUserResp)
+}
+
+@server(
+	prefix: gyu_api/v1
+	group: user
+	jwt: Auth
+)
+service user {
+	@doc "userLogout"
+	@handler logout
+	post /user/logout (LogoutReq) returns (LogoutResp)
+}
+
+// interface 模块
+@server(
+	prefix: gyu_api/v1
+	group: interfaceInfo
+)
+
+service user {
+	@doc "getPageList"
+	@handler GetPageListHandler
+	get /interfaceInfo/list/page (PageListReq) returns (PageListResp)
+}

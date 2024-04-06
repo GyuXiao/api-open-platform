@@ -1,0 +1,214 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "user object",
+    "description": "user object",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "gyu_api/v1/user/login": {
+      "post": {
+        "summary": "userLogin",
+        "operationId": "login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "gyu_api/v1/user/register": {
+      "post": {
+        "summary": "userRegister",
+        "operationId": "register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "user"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "tokenExpire": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LoginResp",
+      "required": [
+        "id",
+        "username",
+        "token",
+        "tokenExpire"
+      ]
+    },
+    "RegisterReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirm_password": {
+          "type": "string"
+        }
+      },
+      "title": "RegisterReq",
+      "required": [
+        "username",
+        "password",
+        "confirm_password"
+      ]
+    },
+    "RegisterResp": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "RegisterResp",
+      "required": [
+        "username"
+      ]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "user_role": {
+          "type": "integer"
+        },
+        "is_delete": {
+          "type": "integer"
+        },
+        "create_time": {
+          "type": "string"
+        },
+        "update_time": {
+          "type": "string"
+        }
+      },
+      "title": "User",
+      "required": [
+        "id",
+        "username",
+        "password",
+        "avatar_url",
+        "email",
+        "phone",
+        "user_role",
+        "is_delete",
+        "create_time",
+        "update_time"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

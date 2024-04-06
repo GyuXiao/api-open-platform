@@ -1,0 +1,108 @@
+syntax = "v1"
+
+info(
+	title: "user object"
+	desc: "user object"
+	author: "GyuXiao"
+	version: "v1"
+)
+
+// User 模块
+type User {
+	Id         uint64 `json:"id"`
+	Username   string `json:"username"`
+	Password   string `json:"password"`
+	AvatarUrl  string `json:"avatar_url"`
+	Email      string `json:"email"`
+	Phone      string `json:"phone"`
+	UserRole   uint8  `json:"user_role"`
+	IsDelete   uint8  `json:"is_delete"`
+	CreateTime string `json:"create_time"`
+	UpdateTime string `json:"update_time"`
+}
+
+// 用户注册的请求参数和响应参数
+type (
+	RegisterReq {
+		Username        string `json:"username"`
+		Password        string `json:"password"`
+		ConfirmPassword string `json:"confirm_password"`
+	}
+	RegisterResp {
+		Username string `json:"username"`
+	}
+)
+
+// 用户登陆的请求参数和响应参数
+type (
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		Id          uint64 `json:"id"`
+		Username    string `json:"username"`
+		AvatarUrl   string `json:"avatarUrl"`
+		UserRole    uint8  `json:"userRole"`
+		Token       string `json:"token"`
+		TokenExpire int64  `json:"tokenExpire"`
+	}
+)
+
+type (
+	CurrentUserReq {
+		Authorization string `header:"authorization"`
+	}
+	CurrentUserResp {
+		Id          uint64 `json:"id"`
+		Username    string `json:"username"`
+		AvatarUrl   string `json:"avatarUrl"`
+		UserRole    uint8  `json:"userRole"`
+		Token       string `json:"token"`
+		TokenExpire int64  `json:"tokenExpire"`
+	}
+)
+
+type (
+	LogoutReq {
+		Authorization string `header:"authorization"`
+	}
+	LogoutResp {
+		IsLogouted bool `json:"isLogouted"`
+	}
+)
+
+// interface 模块
+type InterfaceInfo {
+	Id             uint64 `json:"id"`
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	Url            string `json:"url"`
+	RequestHeader  string `json:"requestHeader"`
+	ResponseHeader string `json:"responseHeader"`
+	Status         uint8  `json:"status"`
+	Method         string `json:"method"`
+	UserId         uint64 `json:"userId"`
+	CreateTime     string `json:"createTime"`
+	UpdateTime     string `json:"updateTime"`
+	IsDelete       uint8  `json:"isDelete"`
+}
+
+// 接口列表的请求参数和响应参数
+type (
+	PageListReq {
+		Keyword  string `form:"keyword,optional"`
+		Current  uint64 `form:"current"`
+		PageSize uint64 `form:"pageSize"`
+	}
+	PageListResp {
+		Total   uint64          `json:"total"`
+		Records []InterfaceInfo `json:"records"`
+	}
+)
+
+// 代码生成
+// goctl api go -api *.api -dir ../  --style=goZero
+
+// 代码格式化
+// goctl api format --dir user.api

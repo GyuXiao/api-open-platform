@@ -1,0 +1,18 @@
+# 本文件不应该进入版本控制管理
+Name: gyu_api-admin
+Host: 0.0.0.0
+Port: 8081
+# 后续这里的配置应该把不同项放到配置文件种
+MySQL:
+  DataSource: root:2288.xzk@tcp(127.0.0.1:3306)/api_db?charset=utf8mb4&parseTime=True&loc=Local
+Redis:
+  Host: 127.0.0.1:6379
+  Pass:
+  Type: node
+#jwtAuth
+Auth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 604800 # 一周
+Log:
+  ServiceName: gyu_api-admin
+  Level: info
