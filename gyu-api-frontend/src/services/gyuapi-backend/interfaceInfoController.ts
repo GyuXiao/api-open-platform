@@ -2,12 +2,12 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** addInterfaceInfo POST /api/interfaceInfo/add */
+/** addInterfaceInfo POST /gyu_api/v1/interfaceInfo/add */
 export async function addInterfaceInfoUsingPOST(
   body: API.InterfaceInfoAddRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponselong>('/api/interfaceInfo/add', {
+  return request<API.BaseResponselong>('/gyu_api/v1/interfaceInfo/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -17,12 +17,12 @@ export async function addInterfaceInfoUsingPOST(
   });
 }
 
-/** deleteInterfaceInfo POST /api/interfaceInfo/delete */
+/** deleteInterfaceInfo POST /gyu_api/v1/interfaceInfo/delete */
 export async function deleteInterfaceInfoUsingPOST(
   body: API.DeleteRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/interfaceInfo/delete', {
+  return request<API.BaseResponseboolean>('/gyu_api/v1/interfaceInfo/delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export async function listInterfaceInfoUsingGET(
 
 /** listInterfaceInfoByPage GET /gyu_api/v1/interfaceInfo/list/page */
 export async function listInterfaceInfoByPageUsingGET(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  // 叠加生成的 Param 类型 (非 body 参数 swagger 默认没有生成对象)
   params: API.listInterfaceInfoByPageUsingGETParams,
   options?: { [key: string]: any },
 ) {
@@ -120,12 +120,12 @@ export async function onlineInterfaceInfoUsingPOST(
   });
 }
 
-/** updateInterfaceInfo POST /api/interfaceInfo/update */
+/** updateInterfaceInfo POST /gyu_api/v1/interfaceInfo/update */
 export async function updateInterfaceInfoUsingPOST(
   body: API.InterfaceInfoUpdateRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/interfaceInfo/update', {
+  return request<API.BaseResponseboolean>('/gyu_api/v1/interfaceInfo/update', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

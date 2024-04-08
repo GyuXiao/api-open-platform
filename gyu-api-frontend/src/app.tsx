@@ -5,6 +5,7 @@ import type { RunTimeLayoutConfig } from '@umijs/max';
 import { Link, history } from '@umijs/max';
 import { requestConfig } from './requestConfig';
 import {getLoginUserUsingGET} from "@/services/gyuapi-backend/userController";
+import defaultSettings from "../config/defaultSettings";
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -92,7 +93,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
-              settings={initialState?.settings}
+              settings={defaultSettings}
               onSettingChange={(settings) => {
                 setInitialState((preInitialState) => ({
                   ...preInitialState,
@@ -104,7 +105,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       );
     },
-    ...initialState?.settings,
+    ...defaultSettings,
   };
 };
 

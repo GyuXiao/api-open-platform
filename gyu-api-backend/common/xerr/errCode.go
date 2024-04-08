@@ -40,14 +40,20 @@ const (
 // DB
 
 const (
-	RecordDuplicateError             uint32 = 300001
-	RecordNotFoundError              uint32 = 300002
-	RecordUpdateError                uint32 = 300003
-	RecordDeleteError                uint32 = 300004
-	RecordCreateError                uint32 = 300005
-	SearchUserError                  uint32 = 300006
-	CreateUserError                  uint32 = 300006
-	SearchInterfaceInfoPageListError uint32 = 300007
+	RecordDuplicateError uint32 = 300001
+	RecordNotFoundError  uint32 = 300002
+	RecordUpdateError    uint32 = 300003
+	RecordDeleteError    uint32 = 300004
+	RecordCreateError    uint32 = 300005
+	RecordCountError     uint32 = 300006
+	SearchUserError      uint32 = 301001
+	CreateUserError      uint32 = 301002
+
+	SearchInterfaceInfoPageListError uint32 = 302001
+	SearchInterfaceInfoError         uint32 = 302002
+	AddInterfaceInfoError            uint32 = 302002
+	UpdateInterfaceInfoError         uint32 = 302003
+	DeleteInterfaceInfoError         uint32 = 302004
 )
 
 // Redis

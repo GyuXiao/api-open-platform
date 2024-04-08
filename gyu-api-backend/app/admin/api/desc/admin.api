@@ -1,14 +1,14 @@
 syntax = "v1"
 
 info(
-	title: "user object"
-	desc: "user object"
+	title: "admin object"
+	desc: "admin object"
 	author: "GyuXiao"
 	version: "v1"
 )
 
 import (
-	"user/user.api"
+	"admin/admin.api"
 )
 
 // 定义服务和方法
@@ -18,7 +18,7 @@ import (
 	group: user
 )
 
-service user {
+service admin {
 	@doc "userRegister"
 	@handler register
 	post /user/register (RegisterReq) returns (RegisterResp)
@@ -33,7 +33,7 @@ service user {
 	group: user
 	jwt: Auth
 )
-service user {
+service admin {
 	@doc "get current user"
 	@handler current
 	get /user/current (CurrentUserReq) returns (CurrentUserResp)
@@ -44,7 +44,7 @@ service user {
 	group: user
 	jwt: Auth
 )
-service user {
+service admin {
 	@doc "userLogout"
 	@handler logout
 	post /user/logout (LogoutReq) returns (LogoutResp)
@@ -56,7 +56,19 @@ service user {
 	group: interfaceInfo
 )
 
-service user {
+service admin {
+	@doc "addInterfaceInfo"
+	@handler AddInterfaceInfoHandler
+	post /interfaceInfo/add (AddInterfaceInfoReq) returns (AddInterfaceInfoResp)
+
+	@doc "updateInterfaceInfo"
+	@handler UpdateInterfaceInfoHandler
+	post /interfaceInfo/update (UpdateInterfaceInfoReq) returns (UpdateInterfaceInfoResp)
+
+	@doc "deleteInterfaceInfo"
+	@handler DeleteInterfaceInfoHandler
+	post /interfaceInfo/delete (DeleteInterfaceInfoReq) returns (DeleteInterfaceInfoResp)
+
 	@doc "getPageList"
 	@handler GetPageListHandler
 	get /interfaceInfo/list/page (PageListReq) returns (PageListResp)

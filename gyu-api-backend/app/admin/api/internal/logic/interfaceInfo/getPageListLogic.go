@@ -27,14 +27,13 @@ func NewGetPageListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPa
 
 func (l *GetPageListLogic) GetPageList(req *types.PageListReq) (resp *types.PageListResp, err error) {
 	interfaceInfoLogic := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-	result, err := interfaceInfoLogic.FindListPage(req.Keyword, req.Current, req.PageSize)
+	result, total, err := interfaceInfoLogic.FindListPage(req.Keyword, req.Current, req.PageSize)
 	if err != nil {
 		return nil, err
 	}
 	if result == nil {
 		return nil, nil
 	}
-	
 	var interfaceInfoList []types.InterfaceInfo
 	for _, interfaceInfo := range result {
 		tmp := types.InterfaceInfo{}
@@ -42,7 +41,7 @@ func (l *GetPageListLogic) GetPageList(req *types.PageListReq) (resp *types.Page
 		interfaceInfoList = append(interfaceInfoList, tmp)
 	}
 	return &types.PageListResp{
-		Total:   uint64(len(interfaceInfoList)),
+		Total:   uint64(total),
 		Records: interfaceInfoList,
 	}, nil
 }

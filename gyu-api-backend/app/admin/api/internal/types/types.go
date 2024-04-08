@@ -74,6 +74,42 @@ type InterfaceInfo struct {
 	IsDelete       uint8  `json:"isDelete"`
 }
 
+type AddInterfaceInfoReq struct {
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	Url            string `json:"url"`
+	RequestHeader  string `json:"requestHeader"`
+	ResponseHeader string `json:"responseHeader"`
+	Method         string `json:"method"`
+	UserId         uint64 `json:"userId"`
+}
+
+type AddInterfaceInfoResp struct {
+	Name string `json:"name"`
+}
+
+type UpdateInterfaceInfoReq struct {
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	Url            string `json:"url"`
+	RequestHeader  string `json:"requestHeader"`
+	ResponseHeader string `json:"responseHeader"`
+	Method         string `json:"method"`
+	Id             uint64 `json:"id"`
+}
+
+type UpdateInterfaceInfoResp struct {
+	IsUpdated bool `json:"isUpdated"`
+}
+
+type DeleteInterfaceInfoReq struct {
+	Id uint64 `json:"id"`
+}
+
+type DeleteInterfaceInfoResp struct {
+	IsDeleted bool `json:"isDeleted"`
+}
+
 type PageListReq struct {
 	Keyword  string `form:"keyword,optional"`
 	Current  uint64 `form:"current"`

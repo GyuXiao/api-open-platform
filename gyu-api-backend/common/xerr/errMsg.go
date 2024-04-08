@@ -34,9 +34,9 @@ func init() {
 	mapCodMsg[RecordUpdateError] = "数据库更新记录错误"
 	mapCodMsg[RecordDeleteError] = "数据库删除记录错误"
 	mapCodMsg[RecordCreateError] = "数据库创建记录错误"
+	mapCodMsg[RecordCountError] = "数据库统计记录错误"
 	mapCodMsg[SearchUserError] = "数据库检索用户错误"
 	mapCodMsg[CreateUserError] = "数据库创建用户错误"
-	mapCodMsg[SearchInterfaceInfoPageListError] = "查询接口列表错误"
 
 	// Redis
 	mapCodMsg[KeyExpireError] = "设置 key 过期时间错误"
@@ -51,6 +51,14 @@ func init() {
 	mapCodMsg[UserPasswordError] = "用户密码错误"
 	mapCodMsg[UserIdNotExistError] = "UserId 不存在"
 	mapCodMsg[UserNotLoginError] = "用户当前状态并没有登陆"
+
+	// InterfaceInfo
+	mapCodMsg[AddInterfaceInfoError] = "添加接口信息错误"
+	mapCodMsg[SearchInterfaceInfoPageListError] = "查询接口列表错误"
+	mapCodMsg[SearchInterfaceInfoError] = "查询接口错误"
+	mapCodMsg[UpdateInterfaceInfoError] = "更新接口信息错误"
+	mapCodMsg[DeleteInterfaceInfoError] = "删除接口信息错误"
+
 }
 
 func GetMsgByCode(errCode uint32) string {

@@ -39,3 +39,4 @@ insert into api_db.`interfaceInfo` (`name`, `description`, `url`, `requestHeader
 insert into api_db.`interfaceInfo` (`name`, `description`, `url`, `requestHeader`, `responseHeader`, `status`, `method`, `userId`) values ('贾烨霖', '马志泽', 'www.cher-marvin.name', '丁鑫磊', '萧鹏涛', 0, '冯远航', 568990039);
 insert into api_db.`interfaceInfo` (`name`, `description`, `url`, `requestHeader`, `responseHeader`, `status`, `method`, `userId`) values ('郝煜城', '黄瑞霖', 'www.jerrell-kiehn.io', '汪昊天', '赵文博', 0, '陆弘文', 7668618995);
 
+ALTER TABLE `interfaceInfo` ADD INDEX `name` (`name`);

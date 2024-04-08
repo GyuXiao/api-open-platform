@@ -3,6 +3,7 @@ package constant
 import "time"
 
 const UserTableName = "user"
+const InterfaceInfoTableName = "interfaceInfo"
 
 const PatternStr = "/[`~!@#$%^&*()_\\-+=<>?:\"{}|,.\\/;'\\\\[\\]·~！@#￥%……&*（）——\\-+={}|《》？：“”【】、；‘'，。、]/"
 

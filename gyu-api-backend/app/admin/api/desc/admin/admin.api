@@ -1,8 +1,8 @@
 syntax = "v1"
 
 info(
-	title: "user object"
-	desc: "user object"
+	title: "admin object"
+	desc: "admin object"
 	author: "GyuXiao"
 	version: "v1"
 )
@@ -88,6 +88,46 @@ type InterfaceInfo {
 	IsDelete       uint8  `json:"isDelete"`
 }
 
+// 添加接口的请求参数和响应参数
+type (
+	AddInterfaceInfoReq {
+		Name           string `json:"name"`
+		Description    string `json:"description"`
+		Url            string `json:"url"`
+		RequestHeader  string `json:"requestHeader"`
+		ResponseHeader string `json:"responseHeader"`
+		Method         string `json:"method"`
+		UserId         uint64 `json:"userId"`
+	}
+	AddInterfaceInfoResp {
+		Name           string `json:"name"`
+	}
+)
+
+type (
+	UpdateInterfaceInfoReq {
+		Name           string `json:"name"`
+		Description    string `json:"description"`
+		Url            string `json:"url"`
+		RequestHeader  string `json:"requestHeader"`
+		ResponseHeader string `json:"responseHeader"`
+		Method         string `json:"method"`
+		Id             uint64 `json:"id"`
+	}
+	UpdateInterfaceInfoResp {
+		IsUpdated bool `json:"isUpdated"`
+	}
+)
+
+type (
+	DeleteInterfaceInfoReq {
+		Id uint64 `json:"id"`
+	}
+	DeleteInterfaceInfoResp {
+		IsDeleted bool `json:"isDeleted"`
+	}
+)
+
 // 接口列表的请求参数和响应参数
 type (
 	PageListReq {
@@ -105,4 +145,4 @@ type (
 // goctl api go -api *.api -dir ../  --style=goZero
 
 // 代码格式化
-// goctl api format --dir user.api
+// goctl api format --dir admin.api

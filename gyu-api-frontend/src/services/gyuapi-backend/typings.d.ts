@@ -154,6 +154,7 @@ declare namespace API {
         requestParams?: string;
         responseHeader?: string;
         url?: string;
+        userId?: number;
     };
 
     type InterfaceInfoInvokeRequest = {

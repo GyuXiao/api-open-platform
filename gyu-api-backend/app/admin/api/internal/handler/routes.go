@@ -55,6 +55,21 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/add",
+				Handler: interfaceInfo.AddInterfaceInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/update",
+				Handler: interfaceInfo.UpdateInterfaceInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/delete",
+				Handler: interfaceInfo.DeleteInterfaceInfoHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodGet,
 				Path:    "/interfaceInfo/list/page",
 				Handler: interfaceInfo.GetPageListHandler(serverCtx),
