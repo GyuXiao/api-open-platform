@@ -45,7 +45,7 @@ func (m *defaultInterfaceInfoModel) DeleteInterfaceInfo(id uint64) error {
 	if err != nil {
 		return err
 	}
-	err = m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("isDelete=0 and id=?", id).Update("isDelete", 1).Error
+	err = m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("isDelete = 0 and id = ?", id).Update("isDelete", 1).Error
 	if err != nil {
 		return xerr.NewErrCode(xerr.DeleteInterfaceInfoError)
 	}
@@ -61,8 +61,7 @@ func (m *defaultInterfaceInfoModel) UpdateInterfaceInfo(id uint64, interfaceInfo
 		ResponseHeader: interfaceInfoMap["responseHeader"].(string),
 		Method:         interfaceInfoMap["method"].(string),
 	}
-	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where(
-		"id = ?", id).Updates(interfaceInfo).Error
+	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ?", id).Updates(interfaceInfo).Error
 	if err != nil {
 		return xerr.NewErrCode(xerr.UpdateInterfaceInfoError)
 	}
@@ -93,7 +92,7 @@ func (m *defaultInterfaceInfoModel) AddInterfaceInfo(interfaceInfoMap map[string
 }
 
 func (m *defaultInterfaceInfoModel) FindListPage(keyword string, pageNumber uint64, pageSize uint64) (interfaceInfoList []*InterfaceInfoModel, total int64, err error) {
-	err = m.Table(constant.InterfaceInfoTableName).Select("count(1)").Where("isDelete = 0").Find(&total).Error
+	err = m.Table(constant.InterfaceInfoTableName).Where("isDelete = 0").Count(&total).Error
 	if err != nil {
 		return nil, 0, xerr.NewErrCode(xerr.RecordCountError)
 	}

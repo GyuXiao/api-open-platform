@@ -1,0 +1,33 @@
+syntax = "v1"
+
+info(
+	title: "interface"
+	desc: "开发一个模拟接口"
+	author: "Gyu"
+	version: "v1"
+)
+
+type User {
+	Username string `json:"username"`
+}
+
+type (
+	PostUserReq {
+		Username string `json:"username"`
+	}
+	PostUserResp {
+		PostResp string `json:"post_resp"`
+	}
+)
+
+@server(
+	prefix: api
+	group: user
+)
+
+service user {
+	// 模拟接口
+	@doc "getUsernameByPost"
+	@handler GetUsernameByPost
+	post /user (PostUserReq) returns (PostUserResp)
+}
