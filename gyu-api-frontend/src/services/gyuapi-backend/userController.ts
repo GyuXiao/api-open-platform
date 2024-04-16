@@ -47,7 +47,6 @@ export async function getUserByIdUsingGET(
 /** getLoginUser GET /gyu_api/v1/user/current */
 export async function getLoginUserUsingGET(options?: { [key: string]: any }) {
     return request<API.BaseResponseUserVO>('/gyu_api/v1/user/current', {
-        // 待改为 get 操作
         method: 'GET',
         ...(options || {}),
     });

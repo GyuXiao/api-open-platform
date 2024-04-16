@@ -7,6 +7,17 @@ const InterfaceInfoTableName = "interfaceInfo"
 
 const PatternStr = "/[`~!@#$%^&*()_\\-+=<>?:\"{}|,.\\/;'\\\\[\\]·~！@#￥%……&*（）——\\-+={}|《》？：“”【】、；‘'，。、]/"
 
+const (
+	MemberRole = 0
+	AdminRole  = 1
+)
+
+// InterfaceInfoStatus
+const (
+	Online  = 1
+	Offline = 0
+)
+
 // Jwt
 
 const KeyJwtUserId = "jwtUserId"

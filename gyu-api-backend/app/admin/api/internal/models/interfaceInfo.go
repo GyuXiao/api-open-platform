@@ -13,9 +13,10 @@ type InterfaceInfoService interface {
 	AddInterfaceInfo(map[string]interface{}) error
 	FindListPage(string, uint64, uint64) ([]*InterfaceInfoModel, int64, error)
 	UpdateInterfaceInfo(uint64, map[string]interface{}) error
+	UpdateInterfaceInfoStatus(uint8, uint64) error
 	DeleteInterfaceInfo(uint64) error
 	SearchInterfaceInfoByName(string) (*InterfaceInfoModel, error)
-	SearchInterfaceInfoById(uint64) error
+	SearchInterfaceInfoById(uint64) (*InterfaceInfoModel, error)
 }
 
 var interfaceInfoService InterfaceInfoService
@@ -25,23 +26,23 @@ type defaultInterfaceInfoModel struct {
 	*gorm.DB
 }
 
-func (m *defaultInterfaceInfoModel) SearchInterfaceInfoById(id uint64) error {
+func (m *defaultInterfaceInfoModel) SearchInterfaceInfoById(id uint64) (*InterfaceInfoModel, error) {
 	interfaceInfo := InterfaceInfoModel{}
 	err := m.Table(constant.InterfaceInfoTableName).Where("id = ? and isDelete = 0", id).Take(&interfaceInfo).Error
 	switch {
 	case err == nil:
-		return nil
+		return &interfaceInfo, nil
 	case errors.Is(err, gorm.ErrRecordNotFound):
 		logc.Info(ctx, "mysql search interfaceInfo by name not found")
-		return xerr.NewErrCode(xerr.RecordNotFoundError)
+		return nil, xerr.NewErrCode(xerr.RecordNotFoundError)
 	default:
 		logc.Infof(ctx, "mysql search interfaceInfo by name err: ", err)
-		return xerr.NewErrCode(xerr.SearchInterfaceInfoError)
+		return nil, xerr.NewErrCode(xerr.SearchInterfaceInfoError)
 	}
 }
 
 func (m *defaultInterfaceInfoModel) DeleteInterfaceInfo(id uint64) error {
-	err := m.SearchInterfaceInfoById(id)
+	_, err := m.SearchInterfaceInfoById(id)
 	if err != nil {
 		return err
 	}
@@ -64,6 +65,14 @@ func (m *defaultInterfaceInfoModel) UpdateInterfaceInfo(id uint64, interfaceInfo
 	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ?", id).Updates(interfaceInfo).Error
 	if err != nil {
 		return xerr.NewErrCode(xerr.UpdateInterfaceInfoError)
+	}
+	return nil
+}
+
+func (m *defaultInterfaceInfoModel) UpdateInterfaceInfoStatus(status uint8, id uint64) error {
+	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ?", id).Update("status", status).Error
+	if err != nil {
+		return xerr.NewErrCode(xerr.UpdateInterfaceInfoStatusError)
 	}
 	return nil
 }

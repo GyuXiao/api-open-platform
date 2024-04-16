@@ -32,13 +32,13 @@ export async function deleteInterfaceInfoUsingPOST(
   });
 }
 
-/** getInterfaceInfoById GET /api/interfaceInfo/get */
+/** getInterfaceInfoById GET /gyu_api/v1/interfaceInfo/get */
 export async function getInterfaceInfoByIdUsingGET(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.getInterfaceInfoByIdUsingGETParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseInterfaceInfo>('/api/interfaceInfo/get', {
+  return request<API.BaseResponseInterfaceInfo>('/gyu_api/v1/interfaceInfo/get', {
     method: 'GET',
     params: {
       ...params,
@@ -90,12 +90,12 @@ export async function listInterfaceInfoByPageUsingGET(
   });
 }
 
-/** offlineInterfaceInfo POST /api/interfaceInfo/offline */
+/** offlineInterfaceInfo POST /gyu_api/v1/interfaceInfo/offline */
 export async function offlineInterfaceInfoUsingPOST(
   body: API.IdRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/interfaceInfo/offline', {
+  return request<API.BaseResponseboolean>('/gyu_api/v1/interfaceInfo/offline', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -105,12 +105,12 @@ export async function offlineInterfaceInfoUsingPOST(
   });
 }
 
-/** onlineInterfaceInfo POST /api/interfaceInfo/online */
+/** onlineInterfaceInfo POST /gyu_api/v1/interfaceInfo/online */
 export async function onlineInterfaceInfoUsingPOST(
   body: API.IdRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseboolean>('/api/interfaceInfo/online', {
+  return request<API.BaseResponseboolean>('/gyu_api/v1/interfaceInfo/online', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

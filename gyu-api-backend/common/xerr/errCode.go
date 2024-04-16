@@ -54,6 +54,7 @@ const (
 	AddInterfaceInfoError            uint32 = 302002
 	UpdateInterfaceInfoError         uint32 = 302003
 	DeleteInterfaceInfoError         uint32 = 302004
+	UpdateInterfaceInfoStatusError   uint32 = 302005
 )
 
 // Redis
@@ -74,4 +75,10 @@ const (
 	UserPasswordError   uint32 = 500005
 	UserIdNotExistError uint32 = 500006
 	UserNotLoginError   uint32 = 500007
+)
+
+// SDK
+const (
+	SDKNewClientError   uint32 = 600001
+	SDKSendRequestError uint32 = 600002
 )

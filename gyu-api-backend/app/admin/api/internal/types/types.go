@@ -110,6 +110,21 @@ type DeleteInterfaceInfoResp struct {
 	IsDeleted bool `json:"isDeleted"`
 }
 
+type GetInterfaceInfoReq struct {
+	Id uint64 `form:"id"`
+}
+
+type GetInterfaceInfoResp struct {
+	Description    string `json:"description"`
+	Url            string `json:"url"`
+	RequestHeader  string `json:"requestHeader"`
+	ResponseHeader string `json:"responseHeader"`
+	Status         uint8  `json:"status"`
+	Method         string `json:"method"`
+	CreateTime     string `json:"createTime"`
+	UpdateTime     string `json:"updateTime"`
+}
+
 type PageListReq struct {
 	Keyword  string `form:"keyword,optional"`
 	Current  uint64 `form:"current"`
@@ -119,4 +134,22 @@ type PageListReq struct {
 type PageListResp struct {
 	Total   uint64          `json:"total"`
 	Records []InterfaceInfo `json:"records"`
+}
+
+type OnlineInterfaceInfoReq struct {
+	Id            uint64 `json:"id"`
+	Authorization string `header:"authorization"`
+}
+
+type OnlineInterfaceInfoResp struct {
+	IsOnline bool `json:"isOnline"`
+}
+
+type OfflineInterfaceInfoReq struct {
+	Id            uint64 `json:"id"`
+	Authorization string `header:"authorization"`
+}
+
+type OfflineInterfaceInfoResp struct {
+	IsOffline bool `json:"isOffline"`
 }

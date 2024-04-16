@@ -71,10 +71,32 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
+				Path:    "/interfaceInfo/get",
+				Handler: interfaceInfo.GetInterfaceInfoByIdHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
 				Path:    "/interfaceInfo/list/page",
 				Handler: interfaceInfo.GetPageListHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/gyu_api/v1"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/online",
+				Handler: interfaceInfo.OnlineInterfaceInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/offline",
+				Handler: interfaceInfo.OfflineInterfaceInfoHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/gyu_api/v1"),
 	)
 }

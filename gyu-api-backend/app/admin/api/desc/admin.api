@@ -11,7 +11,7 @@ import (
 	"admin/admin.api"
 )
 
-// 定义服务和方法
+// 用户注册和登陆
 
 @server(
 	prefix: gyu_api/v1
@@ -28,6 +28,8 @@ service admin {
 	post /user/login (LoginReq) returns (LoginResp)
 }
 
+// 获取当前用户
+
 @server(
 	prefix: gyu_api/v1
 	group: user
@@ -38,6 +40,8 @@ service admin {
 	@handler current
 	get /user/current (CurrentUserReq) returns (CurrentUserResp)
 }
+
+// 用户退出
 
 @server(
 	prefix: gyu_api/v1
@@ -51,6 +55,8 @@ service admin {
 }
 
 // interface 模块
+// 接口信息的增加，修改，删除，分页查询
+
 @server(
 	prefix: gyu_api/v1
 	group: interfaceInfo
@@ -69,7 +75,27 @@ service admin {
 	@handler DeleteInterfaceInfoHandler
 	post /interfaceInfo/delete (DeleteInterfaceInfoReq) returns (DeleteInterfaceInfoResp)
 
+	@doc "getInterfaceInfoById"
+	@handler GetInterfaceInfoByIdHandler
+	get /interfaceInfo/get (GetInterfaceInfoReq) returns (GetInterfaceInfoResp)
+
 	@doc "getPageList"
 	@handler GetPageListHandler
 	get /interfaceInfo/list/page (PageListReq) returns (PageListResp)
+}
+
+@server(
+	prefix: gyu_api/v1
+	group: interfaceInfo
+	jwt: Auth
+)
+
+service admin {
+	@doc "onlineInterfaceInfo"
+	@handler OnlineInterfaceInfoHandler
+	post /interfaceInfo/online (OnlineInterfaceInfoReq) returns (OnlineInterfaceInfoResp)
+
+	@doc "offlineInterfaceInfo"
+	@handler OfflineInterfaceInfoHandler
+	post /interfaceInfo/offline (OfflineInterfaceInfoReq) returns (OfflineInterfaceInfoResp)
 }

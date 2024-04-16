@@ -58,6 +58,11 @@ func init() {
 	mapCodMsg[SearchInterfaceInfoError] = "查询接口错误"
 	mapCodMsg[UpdateInterfaceInfoError] = "更新接口信息错误"
 	mapCodMsg[DeleteInterfaceInfoError] = "删除接口信息错误"
+	mapCodMsg[UpdateInterfaceInfoStatusError] = "更新接口状态错误"
+
+	// SDK
+	mapCodMsg[SDKNewClientError] = "SDK 创建客户端错误"
+	mapCodMsg[SDKSendRequestError] = "SDK 客户端发起请求错误"
 
 }
 

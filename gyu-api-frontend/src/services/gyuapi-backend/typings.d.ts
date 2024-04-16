@@ -575,7 +575,7 @@ declare namespace API {
     };
 
     type UserVO = {
-        id?: string;
+        id?: number;
         username?: string;
         avatarUrl?: string;
         userRole?: number;
