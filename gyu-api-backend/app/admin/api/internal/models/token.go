@@ -60,6 +60,7 @@ func (rds *defaultTokenModel) InsertToken(token string, userId uint64, userRole 
 
 func (rds *defaultTokenModel) CheckTokenExist(token string) ([]string, error) {
 	key := constant.TokenPrefixStr + token
+	// result 的格式是 [userId, userRole, username, avatarUrl]
 	result, err := rds.HmgetCtx(ctx, key, constant.KeyUserId, constant.KeyUserRole, constant.KeyUsername, constant.KeyAvatarUrl)
 	if err != nil {
 		logc.Infof(ctx, "redis HMGet key err: %v", err)

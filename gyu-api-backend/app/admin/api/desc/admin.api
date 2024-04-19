@@ -99,3 +99,15 @@ service admin {
 	@handler OfflineInterfaceInfoHandler
 	post /interfaceInfo/offline (OfflineInterfaceInfoReq) returns (OfflineInterfaceInfoResp)
 }
+
+@server(
+	prefix: gyu_api/v1
+	group: interfaceInfo
+	jwt: Auth
+)
+
+service admin {
+	@doc "invokeInterfaceInfo"
+	@handler InvokeInterfaceInfoHandler
+	post /interfaceInfo/invoke (invokeInterfaceInfoReq) returns (invokeInterfaceInfoResp)
+}

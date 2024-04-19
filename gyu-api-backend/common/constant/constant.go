@@ -7,6 +7,8 @@ const InterfaceInfoTableName = "interfaceInfo"
 
 const PatternStr = "/[`~!@#$%^&*()_\\-+=<>?:\"{}|,.\\/;'\\\\[\\]·~！@#￥%……&*（）——\\-+={}|《》？：“”【】、；‘'，。、]/"
 
+const Salt = "gyu"
+
 const (
 	MemberRole = 0
 	AdminRole  = 1

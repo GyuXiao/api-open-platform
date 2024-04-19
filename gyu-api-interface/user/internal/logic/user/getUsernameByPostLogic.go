@@ -56,7 +56,7 @@ func (l *GetUsernameByPostLogic) GetUsernameByPost(req *types.PostUserReq, r *ht
 		return nil, xerror.New("签名错误, 权限校验未通过")
 	}
 	// 成功响应
-	return &types.PostUserResp{PostResp: "user 接口响应"}, nil
+	return &types.PostUserResp{PostResp: "GetUsernameByPost response: " + req.Username}, nil
 }
 
 func GenSign(params map[string]string, secretKey string) string {

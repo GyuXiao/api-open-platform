@@ -61,6 +61,7 @@ func (m *defaultInterfaceInfoModel) UpdateInterfaceInfo(id uint64, interfaceInfo
 		RequestHeader:  interfaceInfoMap["requestHeader"].(string),
 		ResponseHeader: interfaceInfoMap["responseHeader"].(string),
 		Method:         interfaceInfoMap["method"].(string),
+		RequestParams:  interfaceInfoMap["requestParams"].(string),
 	}
 	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ?", id).Updates(interfaceInfo).Error
 	if err != nil {
@@ -101,6 +102,7 @@ func (m *defaultInterfaceInfoModel) AddInterfaceInfo(interfaceInfoMap map[string
 }
 
 func (m *defaultInterfaceInfoModel) FindListPage(keyword string, pageNumber uint64, pageSize uint64) (interfaceInfoList []*InterfaceInfoModel, total int64, err error) {
+	// 获取 total 记录数
 	err = m.Table(constant.InterfaceInfoTableName).Where("isDelete = 0").Count(&total).Error
 	if err != nil {
 		return nil, 0, xerr.NewErrCode(xerr.RecordCountError)

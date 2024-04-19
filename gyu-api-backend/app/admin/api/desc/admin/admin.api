@@ -78,6 +78,7 @@ type InterfaceInfo {
 	Name           string `json:"name"`
 	Description    string `json:"description"`
 	Url            string `json:"url"`
+	RequestParams  string `json:"requestParams"`
 	RequestHeader  string `json:"requestHeader"`
 	ResponseHeader string `json:"responseHeader"`
 	Status         uint8  `json:"status"`
@@ -94,13 +95,14 @@ type (
 		Name           string `json:"name"`
 		Description    string `json:"description"`
 		Url            string `json:"url"`
+		RequestParams  string `json:"requestParams"`
 		RequestHeader  string `json:"requestHeader"`
 		ResponseHeader string `json:"responseHeader"`
 		Method         string `json:"method"`
 		UserId         uint64 `json:"userId"`
 	}
 	AddInterfaceInfoResp {
-		Name           string `json:"name"`
+		Name string `json:"name"`
 	}
 )
 
@@ -109,6 +111,7 @@ type (
 		Name           string `json:"name"`
 		Description    string `json:"description"`
 		Url            string `json:"url"`
+		RequestParams  string `json:"requestParams"`
 		RequestHeader  string `json:"requestHeader"`
 		ResponseHeader string `json:"responseHeader"`
 		Method         string `json:"method"`
@@ -134,14 +137,15 @@ type (
 		Id uint64 `form:"id"`
 	}
 	GetInterfaceInfoResp {
-		Description string `json:"description"`
-		Url string `json:"url"`
-		RequestHeader string `json:"requestHeader"`
+		Description    string `json:"description"`
+		Url            string `json:"url"`
+		RequestParams  string `json:"requestParams"`
+		RequestHeader  string `json:"requestHeader"`
 		ResponseHeader string `json:"responseHeader"`
-		Status uint8 `json:"status"`
-		Method string `json:"method"`
-		CreateTime string `json:"createTime"`
-		UpdateTime string `json:"updateTime"`
+		Status         uint8  `json:"status"`
+		Method         string `json:"method"`
+		CreateTime     string `json:"createTime"`
+		UpdateTime     string `json:"updateTime"`
 	}
 )
 
@@ -161,7 +165,7 @@ type (
 // 接口上线
 type (
 	OnlineInterfaceInfoReq {
-		Id uint64 `json:"id"`
+		Id            uint64 `json:"id"`
 		Authorization string `header:"authorization"`
 	}
 	OnlineInterfaceInfoResp {
@@ -172,11 +176,23 @@ type (
 // 接口下线
 type (
 	OfflineInterfaceInfoReq {
-		Id uint64 `json:"id"`
+		Id            uint64 `json:"id"`
 		Authorization string `header:"authorization"`
 	}
 	OfflineInterfaceInfoResp {
 		IsOffline bool `json:"isOffline"`
+	}
+)
+
+// 在线调用接口
+type (
+	invokeInterfaceInfoReq {
+		Id            uint64 `json:"id"`
+		RequestParams string `json:"requestParams"`
+		Authorization string `header:"authorization"`
+	}
+	invokeInterfaceInfoResp {
+		ResponseObject interface{} `json:"responseObject"`
 	}
 )
 

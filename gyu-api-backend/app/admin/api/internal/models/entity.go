@@ -10,6 +10,8 @@ type UserModel struct {
 	Email      string    `gorm:"column:email;index" json:"email"`
 	Phone      string    `gorm:"column:phone;index" json:"phone"`
 	UserRole   uint8     `gorm:"column:userRole" json:"userRole"`
+	AccessKey  string    `gorm:"column:accessKey" json:"accessKey"`
+	SecretKey  string    `gorm:"column:secretKey" json:"secretKey"`
 	IsDelete   uint8     `gorm:"column:isDelete" json:"isDelete"`
 	CreateTime time.Time `gorm:"column:createTime" json:"createTime"`
 	UpdateTime time.Time `gorm:"column:updateTime" json:"updateTime"`
@@ -20,6 +22,7 @@ type InterfaceInfoModel struct {
 	Name           string `gorm:"column:name" json:"name"`
 	Description    string `gorm:"column:description" json:"description"`
 	Url            string `gorm:"column:url" json:"url"`
+	RequestParams  string `gorm:"column:requestParams" json:"requestParams"`
 	RequestHeader  string `gorm:"column:requestHeader" json:"requestHeader"`
 	ResponseHeader string `gorm:"column:responseHeader" json:"responseHeader"`
 	Status         uint8  `gorm:"column:status" json:"status"`

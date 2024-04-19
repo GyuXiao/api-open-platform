@@ -46,15 +46,6 @@ const (
 	RecordDeleteError    uint32 = 300004
 	RecordCreateError    uint32 = 300005
 	RecordCountError     uint32 = 300006
-	SearchUserError      uint32 = 301001
-	CreateUserError      uint32 = 301002
-
-	SearchInterfaceInfoPageListError uint32 = 302001
-	SearchInterfaceInfoError         uint32 = 302002
-	AddInterfaceInfoError            uint32 = 302002
-	UpdateInterfaceInfoError         uint32 = 302003
-	DeleteInterfaceInfoError         uint32 = 302004
-	UpdateInterfaceInfoStatusError   uint32 = 302005
 )
 
 // Redis
@@ -75,10 +66,29 @@ const (
 	UserPasswordError   uint32 = 500005
 	UserIdNotExistError uint32 = 500006
 	UserNotLoginError   uint32 = 500007
+	SearchUserError     uint32 = 500008
+	CreateUserError     uint32 = 500009
+)
+
+// InterfaceInfo
+const (
+	SearchInterfaceInfoPageListError uint32 = 700001
+	SearchInterfaceInfoError         uint32 = 700002
+	AddInterfaceInfoError            uint32 = 700002
+	UpdateInterfaceInfoError         uint32 = 700003
+	DeleteInterfaceInfoError         uint32 = 700004
+	UpdateInterfaceInfoStatusError   uint32 = 700005
+	InterfaceInfoOfflineError        uint32 = 700006
 )
 
 // SDK
 const (
 	SDKNewClientError   uint32 = 600001
 	SDKSendRequestError uint32 = 600002
+)
+
+// JSON
+const (
+	JSONMarshalError   uint32 = 800001
+	JSONUnmarshalError uint32 = 800002
 )

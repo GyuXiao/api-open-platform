@@ -47,12 +47,12 @@ export async function getInterfaceInfoByIdUsingGET(
   });
 }
 
-/** invokeInterfaceInfo POST /api/interfaceInfo/invoke */
+/** invokeInterfaceInfo POST /gyu_api/v1/interfaceInfo/invoke */
 export async function invokeInterfaceInfoUsingPOST(
   body: API.InterfaceInfoInvokeRequest,
   options?: { [key: string]: any },
 ) {
-  return request<API.BaseResponseobject>('/api/interfaceInfo/invoke', {
+  return request<API.BaseResponseobject>('/gyu_api/v1/interfaceInfo/invoke', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -76,6 +76,7 @@ const TableList: React.FC = () => {
     const hide = message.loading('修改中');
     try {
       await updateInterfaceInfoUsingPOST({
+        // 这里 id 需要显式传递，保证后端的请求参数里 id 不为空
         id: currentRow.id,
         ...fields,
       });
@@ -189,7 +190,7 @@ const TableList: React.FC = () => {
     {
       title: 'id',
       dataIndex: 'id',
-      valueType: 'index',
+      valueType: 'index', // 这里定义成 index，不会传递给表单
     },
     {
       title: '接口名称',
@@ -219,14 +220,19 @@ const TableList: React.FC = () => {
       valueType: 'text',
     },
     {
+      title: '请求参数',
+      dataIndex: 'requestParams',
+      valueType: 'jsonCode',
+    },
+      {
       title: '请求头',
       dataIndex: 'requestHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
     },
     {
       title: '响应头',
       dataIndex: 'responseHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
     },
     {
       title: '状态',

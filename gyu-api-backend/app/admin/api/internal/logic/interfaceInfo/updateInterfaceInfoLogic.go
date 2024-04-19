@@ -34,6 +34,7 @@ func (l *UpdateInterfaceInfoLogic) UpdateInterfaceInfo(req *types.UpdateInterfac
 		"requestHeader":  req.RequestHeader,
 		"responseHeader": req.ResponseHeader,
 		"method":         req.Method,
+		"requestParams":  req.RequestParams,
 	}
 	err = interfaceInfoModel.UpdateInterfaceInfo(req.Id, interfaceMap)
 	if err != nil {

@@ -33,6 +33,7 @@ func (l *GetInterfaceInfoByIdLogic) GetInterfaceInfoById(req *types.GetInterface
 	return &types.GetInterfaceInfoResp{
 		Description:    interfaceInfo.Description,
 		Url:            interfaceInfo.Url,
+		RequestParams:  interfaceInfo.RequestParams,
 		RequestHeader:  interfaceInfo.RequestHeader,
 		ResponseHeader: interfaceInfo.ResponseHeader,
 		Status:         interfaceInfo.Status,

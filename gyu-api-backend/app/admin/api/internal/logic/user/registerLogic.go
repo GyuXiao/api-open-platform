@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"github.com/duke-git/lancet/v2/cryptor"
+	"github.com/duke-git/lancet/v2/random"
 	"gyu-api-backend/app/admin/api/internal/models"
 	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/tools"
@@ -54,9 +56,14 @@ func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterRe
 	if pwdErr != nil {
 		return nil, pwdErr
 	}
+	// 生成 accessKey 和 secretKey
+	accessKey := cryptor.Md5String(constant.Salt + req.Username + random.RandString(5))
+	secretKey := cryptor.Md5String(constant.Salt + req.Username + random.RandString(10))
 	userMap := map[string]interface{}{
-		"username": req.Username,
-		"password": pwd,
+		"username":  req.Username,
+		"password":  pwd,
+		"accessKey": accessKey,
+		"secretKey": secretKey,
 	}
 	err = userModel.CreateUser(userMap)
 	if err != nil {

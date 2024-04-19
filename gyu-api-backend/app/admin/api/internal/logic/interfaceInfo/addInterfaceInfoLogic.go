@@ -38,6 +38,7 @@ func (l *AddInterfaceInfoLogic) AddInterfaceInfo(req *types.AddInterfaceInfoReq)
 		"name":           req.Name,
 		"description":    req.Description,
 		"url":            req.Url,
+		"requestParams":  req.RequestParams,
 		"requestHeader":  req.RequestHeader,
 		"responseHeader": req.ResponseHeader,
 		"method":         req.Method,

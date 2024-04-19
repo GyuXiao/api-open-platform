@@ -63,7 +63,7 @@ func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(req *types.OnlineInterfac
 	config := sdk.NewConfig(accessKey, secretKey)
 	client, err := user.NewClient(config)
 	if err != nil {
-		logc.Info(l.ctx, "SDK 创建客户端错误: %v", err)
+		logc.Infof(l.ctx, "SDK 创建客户端错误: %v", err)
 		return nil, xerr.NewErrCode(xerr.SDKNewClientError)
 	}
 	userTest := user.NewUser("userTest1")
@@ -74,9 +74,10 @@ func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(req *types.OnlineInterfac
 		Header: nil,
 		Body:   string(userJson),
 	}
-	err = client.Send(baseReq, &response.BaseResponse{})
+	baseRsp := &response.BaseResponse{}
+	err = client.Send(baseReq, baseRsp)
 	if err != nil {
-		logc.Info(l.ctx, "向模拟接口发起请求错误: %v", err)
+		logc.Infof(l.ctx, "向模拟接口发起请求错误: %v", err)
 		return nil, xerr.NewErrCode(xerr.SDKSendRequestError)
 	}
 	// 3 修改接口状态为 online

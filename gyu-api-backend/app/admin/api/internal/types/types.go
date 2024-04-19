@@ -64,6 +64,7 @@ type InterfaceInfo struct {
 	Name           string `json:"name"`
 	Description    string `json:"description"`
 	Url            string `json:"url"`
+	RequestParams  string `json:"requestParams"`
 	RequestHeader  string `json:"requestHeader"`
 	ResponseHeader string `json:"responseHeader"`
 	Status         uint8  `json:"status"`
@@ -78,6 +79,7 @@ type AddInterfaceInfoReq struct {
 	Name           string `json:"name"`
 	Description    string `json:"description"`
 	Url            string `json:"url"`
+	RequestParams  string `json:"requestParams"`
 	RequestHeader  string `json:"requestHeader"`
 	ResponseHeader string `json:"responseHeader"`
 	Method         string `json:"method"`
@@ -92,6 +94,7 @@ type UpdateInterfaceInfoReq struct {
 	Name           string `json:"name"`
 	Description    string `json:"description"`
 	Url            string `json:"url"`
+	RequestParams  string `json:"requestParams"`
 	RequestHeader  string `json:"requestHeader"`
 	ResponseHeader string `json:"responseHeader"`
 	Method         string `json:"method"`
@@ -117,6 +120,7 @@ type GetInterfaceInfoReq struct {
 type GetInterfaceInfoResp struct {
 	Description    string `json:"description"`
 	Url            string `json:"url"`
+	RequestParams  string `json:"requestParams"`
 	RequestHeader  string `json:"requestHeader"`
 	ResponseHeader string `json:"responseHeader"`
 	Status         uint8  `json:"status"`
@@ -152,4 +156,14 @@ type OfflineInterfaceInfoReq struct {
 
 type OfflineInterfaceInfoResp struct {
 	IsOffline bool `json:"isOffline"`
+}
+
+type InvokeInterfaceInfoReq struct {
+	Id            uint64 `json:"id"`
+	RequestParams string `json:"requestParams"`
+	Authorization string `header:"authorization"`
+}
+
+type InvokeInterfaceInfoResp struct {
+	ResponseObject interface{} `json:"responseObject"`
 }
