@@ -49,9 +49,14 @@ declare namespace API {
 
     type BaseResponseobject = {
         code?: number;
-        data?: Record<string, any>;
-        message?: string;
+        data?: responseUserObject;
+        msg?: string;
+        // respObject?: any;
     };
+
+    type responseUserObject = {
+      responseObject?: string;
+    }
 
     // 返回参数
     type BaseResponsePageInterfaceInfo = {
@@ -159,7 +164,7 @@ declare namespace API {
 
     type InterfaceInfoInvokeRequest = {
         id?: number;
-        userRequestParams?: string;
+        requestParams?: string;
     };
 
     type InterfaceInfoUpdateRequest = {

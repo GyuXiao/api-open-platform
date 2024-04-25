@@ -265,22 +265,28 @@ const TableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      fixed: 'right',
+      key: 'operation',
       render: (_, record) => [
-        <a
+        <Button
+          style={{ backgroundColor: 'orange' }}
           key="config"
+          type="primary"
           onClick={() => {
             handleUpdateModalOpen(true);
             setCurrentRow(record);
           }}
         >
           修改
-        </a>,
+        </Button>,
         record.status === 0 ?
-        <a
-          key="online"
-          onClick={() => { handleOnline(record)}}>
-          发布
-        </a>
+          <Button
+            key="online"
+            type="primary"
+            onClick={() => {handleOnline(record)}}
+          >
+            发布
+          </Button>
         : null,
         record.status === 1 ?
           <Button

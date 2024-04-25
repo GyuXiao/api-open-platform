@@ -4,6 +4,7 @@ import "time"
 
 const UserTableName = "user"
 const InterfaceInfoTableName = "interfaceInfo"
+const UserInterfaceInfoTableName = "user_interface_info"
 
 const PatternStr = "/[`~!@#$%^&*()_\\-+=<>?:\"{}|,.\\/;'\\\\[\\]·~！@#￥%……&*（）——\\-+={}|《》？：“”【】、；‘'，。、]/"
 

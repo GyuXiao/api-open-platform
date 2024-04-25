@@ -32,3 +32,15 @@ type InterfaceInfoModel struct {
 	UpdateTime     string `gorm:"column:updateTime" json:"updateTime"`
 	IsDelete       uint8  `gorm:"column:isDelete" json:"isDelete"`
 }
+
+type UserInterfaceInfoModel struct {
+	Id              uint64 `gorm:"column:id;primaryKey" json:"id"`
+	UserId          uint64 `gorm:"column:userId" json:"userId"`
+	InterfaceInfoId uint64 `gorm:"column:interfaceInfoId" json:"interfaceInfoId"`
+	TotalNum        int64  `gorm:"column:totalNum" json:"totalNum"`
+	LeftNum         int64  `gorm:"column:leftNum" json:"leftNum"`
+	Status          uint8  `gorm:"column:status" json:"status"`
+	CreateTime      string `gorm:"column:createTime" json:"createTime"`
+	UpdateTime      string `gorm:"column:updateTime" json:"updateTime"`
+	IsDelete        uint8  `gorm:"column:isDelete" json:"isDelete"`
+}

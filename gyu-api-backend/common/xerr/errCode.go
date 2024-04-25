@@ -87,6 +87,14 @@ const (
 	SDKSendRequestError uint32 = 600002
 )
 
+// UserInterfaceInfo
+
+const (
+	CreateUserInterfaceInfoError uint32 = 900001
+	SearchUserInterfaceInfoError uint32 = 900002
+	InvokeSuccessUpdateError     uint32 = 900003
+)
+
 // JSON
 const (
 	JSONMarshalError   uint32 = 800001
