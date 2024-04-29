@@ -73,15 +73,5 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(req *types.InvokeInterfac
 		logc.Infof(l.ctx, "向模拟接口发起请求错误: %v", err)
 		return nil, xerr.NewErrCode(xerr.SDKSendRequestError)
 	}
-	// 以下逻辑有待删减
-	respStr := "在线调用出了一点问题，请稍后再使用"
-	if baseRsp.Data != nil {
-		postUserResp, ok := baseRsp.Data.(map[string]interface{})["post_resp"]
-		if !ok {
-			logc.Info(l.ctx, "baseRsp.Data 断言失败")
-			return nil, xerr.NewErrCode(xerr.ServerCommonError)
-		}
-		respStr = postUserResp.(string)
-	}
-	return &types.InvokeInterfaceInfoResp{ResponseObject: respStr}, nil
+	return &types.InvokeInterfaceInfoResp{ResponseObject: baseRsp}, nil
 }

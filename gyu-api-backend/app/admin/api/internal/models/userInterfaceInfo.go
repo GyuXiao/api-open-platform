@@ -11,8 +11,7 @@ import (
 
 type UserInterfaceInfoService interface {
 	CreateUserInterfaceInfo(map[string]interface{}) error
-	SearchUserInterfaceByUserId(uint64) (*UserInterfaceInfoModel, error)
-	SearchUserInterfaceByInterfaceId(uint64) (*UserInterfaceInfoModel, error)
+	SearchUserInterfaceByUserIdAndInterfaceId(uint64, uint64) (*UserInterfaceInfoModel, error)
 	UpdateForInvokeSuccess(uint64, uint64) error
 }
 
@@ -31,7 +30,9 @@ func NewDefaultUserInterfaceInfoModel(db *gorm.DB) UserInterfaceInfoService {
 }
 
 func (m *defaultUserInterfaceInfoModel) CreateUserInterfaceInfo(userInterfaceInfoMap map[string]interface{}) error {
-	err := m.Table(constant.UserInterfaceInfoTableName).Model(&UserInterfaceInfoModel{}).Create(userInterfaceInfoMap).Error
+	err := m.Table(constant.UserInterfaceInfoTableName).
+		Model(&UserInterfaceInfoModel{}).
+		Create(userInterfaceInfoMap).Error
 	if err != nil {
 		logc.Infof(ctx, "mysql create userInterfaceInfo err: %v", err)
 		return xerr.NewErrCode(xerr.CreateUserInterfaceInfoError)
@@ -39,9 +40,13 @@ func (m *defaultUserInterfaceInfoModel) CreateUserInterfaceInfo(userInterfaceInf
 	return nil
 }
 
-func (m *defaultUserInterfaceInfoModel) SearchUserInterfaceByUserId(userId uint64) (*UserInterfaceInfoModel, error) {
+// 根据 userId 和 interfaceInfoId 查询唯一记录
+
+func (m *defaultUserInterfaceInfoModel) SearchUserInterfaceByUserIdAndInterfaceId(userId uint64, interfaceInfoId uint64) (*UserInterfaceInfoModel, error) {
 	userInterfaceInfo := UserInterfaceInfoModel{}
-	err := m.Table(constant.UserInterfaceInfoTableName).Where("userId = ? and isDelete = 0", userId).Take(&userInterfaceInfo).Error
+	err := m.Table(constant.UserInterfaceInfoTableName).
+		Where("userId = ? and interfaceInfoId = ? and isDelete = 0", userId, interfaceInfoId).
+		Take(&userInterfaceInfo).Error
 	switch {
 	case err == nil:
 		return &userInterfaceInfo, nil
@@ -54,20 +59,7 @@ func (m *defaultUserInterfaceInfoModel) SearchUserInterfaceByUserId(userId uint6
 	}
 }
 
-func (m *defaultUserInterfaceInfoModel) SearchUserInterfaceByInterfaceId(interfaceInfoId uint64) (*UserInterfaceInfoModel, error) {
-	userInterfaceInfo := UserInterfaceInfoModel{}
-	err := m.Table(constant.UserInterfaceInfoTableName).Where("interfaceInfoId = ? and isDelete = 0", interfaceInfoId).Take(&userInterfaceInfo).Error
-	switch {
-	case err == nil:
-		return &userInterfaceInfo, nil
-	case errors.Is(err, gorm.ErrRecordNotFound):
-		logc.Info(ctx, "mysql search userInterfaceInfo by interfaceInfoId not found")
-		return nil, xerr.NewErrCode(xerr.RecordNotFoundError)
-	default:
-		logc.Infof(ctx, "mysql search userInterfaceInfo by interfaceInfoId err: %v", err)
-		return nil, xerr.NewErrCode(xerr.SearchUserInterfaceInfoError)
-	}
-}
+// 调用更新方法前，记得先用 userId 和 interfaceInfoId 查询是否存在记录
 
 func (m *defaultUserInterfaceInfoModel) UpdateForInvokeSuccess(userId uint64, interfaceInfoId uint64) error {
 	// 这里还应该再优化，比如使用分布式事务来解决并发问题

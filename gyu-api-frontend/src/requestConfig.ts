@@ -1,6 +1,6 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import {getToken, setToken} from "@/tools/token";
+import {getToken} from "@/tools/token";
 import {message} from "antd";
 
 // 与后端约定的响应数据格式
@@ -38,9 +38,6 @@ export const requestConfig: RequestConfig = {
       if (data?.code !== 200) {
         message.error('请求失败: '+data?.msg)
         // throw new Error('请求失败: '+msg);
-      }
-      if (data.token) {
-        setToken(data.token)
       }
       return response;
     },

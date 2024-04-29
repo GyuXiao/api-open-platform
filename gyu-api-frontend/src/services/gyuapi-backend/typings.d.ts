@@ -49,13 +49,18 @@ declare namespace API {
 
     type BaseResponseobject = {
         code?: number;
-        data?: responseUserObject;
         msg?: string;
-        // respObject?: any;
+        data?: responseObject;
     };
 
-    type responseUserObject = {
-      responseObject?: string;
+    type responseObject = {
+        responseObject?: invokeResponseObject;
+    }
+
+    type invokeResponseObject = {
+        code: number;
+        msg?: string;
+        data?: any;
     }
 
     // 返回参数

@@ -60,9 +60,11 @@ const Index: React.FC = () => {
         id: Number(params.id),
         ...values,
       });
-      // @ts-ignore
-      // 暂时如此
-      setInvokeRes(res.data.responseObject)
+      const responseObject = res.data?.responseObject
+      if (responseObject && responseObject.code === 200) {
+        const invokeData = responseObject.data
+        setInvokeRes(invokeData)
+      }
       message.success('请求成功');
     } catch (error: any) {
       message.error('操作失败，' + error.message);
@@ -90,10 +92,10 @@ const Index: React.FC = () => {
         )}
       </Card>
       <Divider/>
-      <Card>
+      <Card title="请求参数">
          {/*创建一个表单,表单名称为 invoke,布局方式为垂直布局,当表单提交时调用 onFinish */}
         <Form name="invoke" layout="vertical" onFinish={onFinish}>
-          <Form.Item label="请求参数" name="requestParams">
+          <Form.Item name="requestParams">
             <Input.TextArea />
           </Form.Item>
           <Form.Item wrapperCol={{ span: 16 }}>
@@ -105,7 +107,7 @@ const Index: React.FC = () => {
       </Card>
       <Divider/>
       <Card title="返回结果" loading={invokeLoading}>
-        {invokeRes}
+        {JSON.stringify(invokeRes)}
       </Card>
     </PageContainer>
   );

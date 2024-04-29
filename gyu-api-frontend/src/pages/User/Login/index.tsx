@@ -20,6 +20,7 @@ import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
 import Settings from '../../../../config/defaultSettings';
 import {userLoginUsingPOST} from "@/services/gyuapi-backend/userController";
+import {setToken} from "@/tools/token";
 const useStyles = createStyles(({ token }) => {
   return {
     action: {
@@ -104,6 +105,9 @@ const Login: React.FC = () => {
         setInitialState({
           loginUser: res.data,
         });
+        if (res.data.token) {
+          setToken(res.data.token)
+        }
         return;
       }
     } catch (error) {
