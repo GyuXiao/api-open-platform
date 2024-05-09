@@ -13,7 +13,7 @@ type User {
 
 type (
 	PostUserReq {
-		Username string `json:"username"`
+		Username string `form:"username"`
 	}
 	PostUserResp {
 		PostResp string `json:"post_resp"`
