@@ -8,6 +8,9 @@ import (
 	"gyu-api-gateway/types"
 )
 
+// 待删
+// todo 因为这是 gyu-api-interface 项目的逻辑
+
 func PostUserByUserNameHandle(c *gin.Context) {
 	var req types.UserRequest
 	err := c.ShouldBind(&req)
