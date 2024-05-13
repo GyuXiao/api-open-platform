@@ -8,8 +8,8 @@ import (
 // BaseResponse 统一返回
 type BaseResponse struct {
 	Code    int    `json:"code"`
-	Data    any    `json:"data"`
 	Message string `json:"msg"`
+	Data    any    `json:"data"`
 }
 
 // HandleResponse 统一返回处理

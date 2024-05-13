@@ -46,3 +46,7 @@ const (
 	Methods            = "GET, OPTIONS, POST, PATCH, PUT, DELETE"
 	True               = "true"
 )
+
+// 测试环境的网关 host
+
+const GatewayHost = "http://localhost:8123"

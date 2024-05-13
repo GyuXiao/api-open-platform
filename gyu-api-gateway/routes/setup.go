@@ -7,7 +7,6 @@ import (
 
 func Setup(r *gin.Engine) {
 
-	// 5,判断请求的接口是否存在
 	// 8,调用成功，接口次数 +1; 调用失败，返回业务码
 
 	// 2,请求日志
@@ -22,8 +21,16 @@ func Setup(r *gin.Engine) {
 			// 4,用户鉴权（ak sk）
 			middleware.FilterWithAuth(),
 
+			// todo 正式发起请求之前，还要做的事情
+			// 从数据库中查询模拟接口是否存在，以及请求方法是否匹配（还可以校验请求参数）gRPC
+			// 5,判断请求的接口是否存在
+
 			// 6,请求转发，调用模拟接口
 			middleware.TargetUrlMiddleware(),
+
+			// todo：调用成功后的业务逻辑，接口调用次数 +1
+			// 8,调用成功，接口次数 +1; 调用失败，返回业务码
+
 		)
 	}
 	// 在管理者的校验
