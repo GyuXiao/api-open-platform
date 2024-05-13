@@ -62,7 +62,7 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(req *types.InvokeInterfac
 		return nil, xerr.NewErrCode(xerr.SDKNewClientError)
 	}
 	baseReq := &request.BaseRequest{
-		URL:    "http://127.0.0.1:8123/api/user",
+		URL:    "http://127.0.0.1:8123/api/invoke",
 		Method: "POST",
 		Header: nil,
 		Body:   req.RequestParams,

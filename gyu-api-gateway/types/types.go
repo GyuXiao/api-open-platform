@@ -1,7 +1,7 @@
 package types
 
-type UserRequest struct {
-	UserName string `form:"username"`
+type Request struct {
+	Username string `json:"username"`
 }
 
 type UserResponse struct {

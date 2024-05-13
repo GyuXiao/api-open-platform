@@ -14,11 +14,11 @@ func GetUsernameByPostHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.PostUserReq
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.ParamErrorResult(r, w, err)
 			return
 		}
 		l := user.NewGetUsernameByPostLogic(r.Context(), svcCtx)
-		resp, err := l.GetUsernameByPost(&req, r)
+		resp, err := l.GetUsernameByPost(&req)
 		result.HttpResult(r, w, resp, err)
 	}
 }

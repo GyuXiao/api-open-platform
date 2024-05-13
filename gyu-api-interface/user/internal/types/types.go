@@ -6,7 +6,7 @@ type User struct {
 }
 
 type PostUserReq struct {
-	Username string `form:"username"`
+	Username string `json:"username"`
 }
 
 type PostUserResp struct {

@@ -1,13 +1,9 @@
 package user
 
-import (
-	"gyu-api-gateway/svc"
-	"gyu-api-gateway/types"
-)
+// 待删
+// 暂时当作模板代码
 
-// todo 待删
-
-func PostUserByUserName(ctx *svc.ServiceContext, req *types.UserRequest) (resp types.UserResponse, err error) {
-
-	return
-}
+//func PostUserByUserName(ctx *svc.ServiceContext, req *types.UserRequest) (resp types.UserResponse, err error) {
+//
+//	return
+//}

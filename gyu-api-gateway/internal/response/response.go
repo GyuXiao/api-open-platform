@@ -24,7 +24,7 @@ func HandleResponse(c *gin.Context, data any, err error) {
 	}
 
 	c.JSON(200, BaseResponse{
-		Code:    0,
+		Code:    200,
 		Data:    data,
 		Message: "成功",
 	})

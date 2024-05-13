@@ -17,3 +17,10 @@ func HandlerForbidden(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"result": http.StatusForbidden, "msg": "禁止状态"})
 	c.Abort()
 }
+
+// 未授权状态 401
+
+func HandlerUnauthorized(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"result": http.StatusUnauthorized, "msg": "鉴权未通过"})
+	c.Abort()
+}
