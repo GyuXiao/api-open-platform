@@ -2,13 +2,14 @@ package middleware
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/rest/httpc"
 	"gyu-api-gateway/global"
 	"gyu-api-gateway/internal/response"
 	"gyu-api-gateway/types"
+	"gyu-api-gateway/utils"
 	"io"
 	"net/http"
 )
@@ -22,15 +23,12 @@ func TargetUrlMiddleware() gin.HandlerFunc {
 			targetURL += "?" + queryRaw
 		}
 		// 构造请求
-		var req types.Request
-		err := c.BindJSON(&req)
-		if err != nil {
-			logc.Errorf(c.Request.Context(), "获取请求体错误: %v", err)
-			return
-		}
+		body := utils.GetRequestBody(c)
+		fmt.Printf("req 结构体：%+v\n", body)
 		// 发起请求
-		// todo: 这里的 targetUrl 和 req 都应该是灵活的，不能写死
-		resp, err := httpc.Do(c.Request.Context(), c.Request.Method, targetURL, req)
+		// todo：设置超时时间
+		// todo: 这里的 targetUrl 应该是灵活的，不能写死，而是从外面传进来
+		resp, err := utils.Do(c.Request.Context(), c.Request.Method, targetURL, body)
 		if err != nil {
 			logc.Errorf(c.Request.Context(), "请求转发错误: %v", err)
 			global.HandlerInvokeError(c)
