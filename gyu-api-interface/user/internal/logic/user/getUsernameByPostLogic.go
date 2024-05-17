@@ -24,6 +24,8 @@ func NewGetUsernameByPostLogic(ctx context.Context, svcCtx *svc.ServiceContext) 
 
 func (l *GetUsernameByPostLogic) GetUsernameByPost(req *types.PostUserReq) (resp *types.PostUserResp, err error) {
 	// 成功响应
+	// 测试一下是否会造成请求超时
+	// time.Sleep(time.Minute * 10)
 	logc.Infof(l.ctx, "GetUsernameByPost requestBody: %s", req.Username)
 	return &types.PostUserResp{PostResp: "GetUsernameByPost response: " + req.Username}, nil
 }

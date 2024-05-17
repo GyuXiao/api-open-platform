@@ -5,22 +5,26 @@ import (
 	"net/http"
 )
 
+func HandlerServerInternalError(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusInternalServerError, "msg": "服务器内部错误!"})
+	c.Abort()
+}
+
 func HandlerInvokeError(c *gin.Context) {
-	// http.StatusBadRequest
-	c.JSON(http.StatusOK, gin.H{"result": -1, "msg": "第三方API接口调用失败,请联系管理员!"})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusBadRequest, "msg": "第三方API接口调用失败,请联系管理员!"})
 	c.Abort()
 }
 
 // 禁止状态 403
 
 func HandlerForbidden(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"result": http.StatusForbidden, "msg": "禁止状态"})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusForbidden, "msg": "禁止状态"})
 	c.Abort()
 }
 
 // 未授权状态 401
 
 func HandlerUnauthorized(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"result": http.StatusUnauthorized, "msg": "鉴权未通过"})
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusUnauthorized, "msg": "鉴权未通过"})
 	c.Abort()
 }

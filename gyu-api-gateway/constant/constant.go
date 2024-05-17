@@ -10,3 +10,7 @@ const (
 	ParamFormatError  uint32 = 100002
 	RequestParamError uint32 = 100003
 )
+
+const JSON = "json"
+
+const RequestTimeout = 5

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/zeromicro/go-zero/core/logc"
+	"gyu-api-gateway/constant"
 	"net/url"
 )
 
@@ -36,5 +37,5 @@ func GetRequestBody(c *gin.Context) map[string]map[string]any {
 		logc.Errorf(c.Request.Context(), "解析请求内容错误: %v", err)
 		return nil
 	}
-	return map[string]map[string]any{"json": body}
+	return map[string]map[string]any{constant.JSON: body}
 }

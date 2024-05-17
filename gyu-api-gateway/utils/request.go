@@ -15,16 +15,6 @@ import (
 	nurl "net/url"
 )
 
-// 入口函数
-
-func Do(ctx context.Context, method, url string, jsonBody map[string]map[string]any) (*http.Response, error) {
-	req, err := buildRequest(ctx, method, url, jsonBody)
-	if err != nil {
-		return nil, err
-	}
-	return DoRequest(req)
-}
-
 var interceptors = []Interceptor{
 	LogInterceptor,
 }
@@ -64,10 +54,10 @@ func request(r *http.Request, cli client) (*http.Response, error) {
 	)
 	defer span.End()
 
+	// 使用日志拦截器
 	respHandlers := make([]ResponseHandler, len(interceptors))
 	for i, interceptor := range interceptors {
 		var h ResponseHandler
-		// http.Request, responseHandler
 		r, h = interceptor(r)
 		respHandlers[i] = h
 	}
@@ -75,6 +65,7 @@ func request(r *http.Request, cli client) (*http.Response, error) {
 	r = r.WithContext(ctx)
 	propagator.Inject(ctx, propagation.HeaderCarrier(r.Header))
 
+	// 客户端发起请求
 	resp, err := cli.do(r)
 	for i := len(respHandlers) - 1; i >= 0; i-- {
 		respHandlers[i](resp, err)
@@ -93,7 +84,7 @@ func request(r *http.Request, cli client) (*http.Response, error) {
 
 // 通过一个 map[string]map[string]any 类型的数据结构，构建请求
 
-func buildRequest(ctx context.Context, method, url string, body map[string]map[string]any) (*http.Request, error) {
+func BuildRequest(ctx context.Context, method, url string, body map[string]map[string]any) (*http.Request, error) {
 	u, err := nurl.Parse(url)
 	if err != nil {
 		return nil, err

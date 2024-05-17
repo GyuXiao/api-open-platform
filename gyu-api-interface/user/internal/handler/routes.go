@@ -3,6 +3,7 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
 	user "gyu-api-interface/user/internal/handler/user"
 	"gyu-api-interface/user/internal/svc"
@@ -20,5 +21,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/api"),
+		rest.WithTimeout(5000*time.Millisecond),
 	)
 }

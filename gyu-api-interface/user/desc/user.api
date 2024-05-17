@@ -23,6 +23,7 @@ type (
 @server(
 	prefix: api
 	group: user
+	timeout: 5s
 )
 
 service user {

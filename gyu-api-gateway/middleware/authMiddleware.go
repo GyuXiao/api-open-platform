@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// todo: ak 和 sk 不能在这里写死，后续也要改
+// todo : ak 和 sk 不能在这里写死，后续也要改
 
 var AccessKey string = "gyu"
 var SecretKey string = "abcdefg"
