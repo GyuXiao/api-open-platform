@@ -16,3 +16,9 @@ Auth:
 Log:
   ServiceName: gyu_api-admin
   Level: info
+
+AdminRpcConf:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: admin-rpc

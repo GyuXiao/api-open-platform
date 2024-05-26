@@ -4,22 +4,19 @@ import (
 	"context"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/core/stores/redis"
-	"github.com/zeromicro/go-zero/zrpc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gyu-api-backend/app/admin/api/internal/config"
-	"gyu-api-backend/app/admin/rpc/client/user"
+	"gyu-api-backend/app/admin/rpc/internal/config"
 )
 
 type ServiceContext struct {
 	Config      config.Config
 	DBEngin     *gorm.DB
 	RedisClient *redis.Redis
-	UserRpc     user.UserZrpcClient
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	db, err := gorm.Open(mysql.Open(c.MySQL.DataSource), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(c.DB.DataSource), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database, error=" + err.Error())
 	}
@@ -32,6 +29,5 @@ func NewServiceContext(c config.Config) *ServiceContext {
 			Type: c.Redis.Type,
 			Pass: c.Redis.Pass,
 		}),
-		UserRpc: user.NewUserZrpcClient(zrpc.MustNewClient(c.AdminRpcConf)),
 	}
 }

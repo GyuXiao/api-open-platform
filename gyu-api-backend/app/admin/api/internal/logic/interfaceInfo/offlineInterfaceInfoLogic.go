@@ -2,7 +2,7 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/api/internal/models"
+	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/xerr"
 	"strconv"

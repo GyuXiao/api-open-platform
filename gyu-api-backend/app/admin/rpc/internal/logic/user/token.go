@@ -1,10 +1,10 @@
-package user
+package userlogic
 
 import (
 	"context"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/zeromicro/go-zero/core/logx"
-	"gyu-api-backend/app/admin/api/internal/svc"
+	"gyu-api-backend/app/admin/rpc/internal/svc"
 	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/xerr"
 	"time"
@@ -35,9 +35,9 @@ func NewGenerateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Gen
 
 func (l *GenerateTokenLogic) GenerateToken(req *GenerateTokenReq) (*GenerateTokenResp, error) {
 	now := time.Now().Unix()
-	accessExpire := l.svcCtx.Config.Auth.AccessExpire
+	accessExpire := l.svcCtx.Config.JwtAuth.AccessExpire
 	accessToken, err := l.getJwtToken(
-		l.svcCtx.Config.Auth.AccessSecret,
+		l.svcCtx.Config.JwtAuth.AccessSecret,
 		now,
 		now+accessExpire,
 		req.userId,

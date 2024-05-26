@@ -2,10 +2,7 @@ package user
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/api/internal/models"
-	"gyu-api-backend/common/constant"
-	"gyu-api-backend/common/xerr"
-	"strconv"
+	"gyu-api-backend/app/admin/rpc/client/user"
 	"strings"
 
 	"gyu-api-backend/app/admin/api/internal/svc"
@@ -30,41 +27,17 @@ func NewCurrentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CurrentLo
 
 func (l *CurrentLogic) Current(req *types.CurrentUserReq) (resp *types.CurrentUserResp, err error) {
 	token := strings.Split(req.Authorization, " ")[1]
-	// 校验从 jwt token 解析出来的 userId 是否和缓存中的 userId 一致
-	// 1，从 token 中解析出 userId1
-	generateTokenLogic := NewGenerateTokenLogic(l.ctx, l.svcCtx)
-	claims, err := generateTokenLogic.ParseTokenByKey(token, l.svcCtx.Config.Auth.AccessSecret)
+	currentResp, err := l.svcCtx.UserRpc.CurrentUser(l.ctx, &user.CurrentUserReq{AuthToken: token})
 	if err != nil {
 		return nil, err
 	}
-	userId1 := claims[constant.KeyJwtUserId].(float64)
-	// 2，从 根据 token 从 redis 中拿到 userId2
-	tokenLogic := models.NewDefaultTokenModel(l.svcCtx.RedisClient)
-	result, err := tokenLogic.CheckTokenExist(token)
-	if err != nil {
-		return nil, err
-	}
-	userIdStr, userRoleStr, username, avatarUrl := result[0], result[1], result[2], result[3]
-	userId2, err := strconv.Atoi(userIdStr)
-	if err != nil {
-		return nil, err
-	}
-	userRole, err := strconv.Atoi(userRoleStr)
-	if err != nil {
-		return nil, err
-	}
-	// 3，判断两者是否相同
-	if uint64(userId1) != uint64(userId2) {
-		return nil, xerr.NewErrCode(xerr.UserNotLoginError)
-	}
-	// 校验成功后，刷新 token
-	tokenLogic.RefreshToken(token)
+
 	return &types.CurrentUserResp{
-		Id:          uint64(userId1),
-		Username:    username,
-		AvatarUrl:   avatarUrl,
-		UserRole:    uint8(userRole),
-		Token:       token,
-		TokenExpire: int64(constant.TokenExpireTime.Seconds()),
+		Id:          currentResp.Id,
+		Username:    currentResp.Username,
+		AvatarUrl:   currentResp.AvatarUrl,
+		UserRole:    uint8(currentResp.UserRole),
+		Token:       currentResp.Token,
+		TokenExpire: currentResp.TokenExpire,
 	}, nil
 }

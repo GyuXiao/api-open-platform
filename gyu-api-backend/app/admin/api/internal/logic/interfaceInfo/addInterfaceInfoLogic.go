@@ -3,7 +3,7 @@ package interfaceInfo
 import (
 	"context"
 	"github.com/zeromicro/go-zero/core/logc"
-	"gyu-api-backend/app/admin/api/internal/models"
+	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/common/xerr"
 
 	"gyu-api-backend/app/admin/api/internal/svc"

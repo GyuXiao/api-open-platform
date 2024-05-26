@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/api/internal/models"
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
+	"gyu-api-backend/app/admin/rpc/client/user"
 	"strings"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,10 +26,10 @@ func NewLogoutLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LogoutLogi
 
 func (l *LogoutLogic) Logout(req *types.LogoutReq) (resp *types.LogoutResp, err error) {
 	token := strings.Split(req.Authorization, " ")[1]
-	tokenLogic := models.NewDefaultTokenModel(l.svcCtx.RedisClient)
-	err = tokenLogic.DeleteToken(token)
+	logoutResp, err := l.svcCtx.UserRpc.Logout(l.ctx, &user.LogoutReq{AuthToken: token})
 	if err != nil {
 		return nil, err
 	}
-	return &types.LogoutResp{IsLogouted: true}, nil
+
+	return &types.LogoutResp{IsLogouted: logoutResp.IsLogouted}, nil
 }

@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+import "google/protobuf/any.proto";
+
+// User 模块
+// model
+message User {
+  uint64 id = 1;
+  string username = 2;
+  string password = 3;
+  string avatarUrl = 4;
+  string email = 5;
+  string phone = 6;
+  uint64 userRole = 7;
+  uint64 isDelete = 8;
+  string createTime = 9;
+  string updateTime = 10;
+}
+
+// 用户注册
+message RegisterReq {
+  string username = 1;
+  string password = 2;
+  string confirmPassword = 3;
+}
+message RegisterResp {
+  string username = 1;
+}
+
+// 用户登录
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+message LoginResp {
+  uint64 id = 1;
+  string username = 2;
+  string avatarUrl = 3;
+  uint64 userRole = 4;
+  string token = 5;
+  int64 tokenExpire = 6;
+}
+
+// 当前用户
+message CurrentUserReq {
+  string authToken = 1;
+}
+message CurrentUserResp {
+  uint64 id = 1;
+  string username = 2;
+  string avatarUrl = 3;
+  uint64 userRole = 4;
+  string token = 5;
+  int64 tokenExpire = 6;
+}
+
+// 用户退出
+message LogoutReq {
+  string authToken = 1;
+}
+message LogoutResp {
+  bool isLogouted = 1;
+}
+
+// user 服务
+
+service user {
+  rpc login(LoginReq) returns(LoginResp);
+  rpc register(RegisterReq) returns(RegisterResp);
+  rpc currentUser(CurrentUserReq) returns(CurrentUserResp);
+  rpc logout(LogoutReq) returns(LogoutResp);
+}
+
+// interface 模块
+// model
+message InterfaceInfo {
+  uint64 id = 1;
+  string name = 2;
+  string description = 3;
+  string url = 4;
+  string requestParams = 5;
+  string requestHeader = 6;
+  string responseHeader = 7;
+  uint32 status = 8;
+  string method = 9;
+  uint64 userId = 10;
+  string createTime = 11;
+  string updateTime = 12;
+  uint32 isDelete = 13;
+}
+
+// add 接口
+message AddInterfaceInfoReq {
+  string name = 1;
+  string description = 2;
+  string url = 3;
+  string requestParams = 4;
+  string requestHeader = 5;
+  string responseHeader = 6;
+  string method = 7;
+  uint64 userId = 8;
+}
+message AddInterfaceInfoResp {
+  string name = 1;
+}
+
+// update 接口
+message UpdateInterfaceInfoReq {
+  string name = 1;
+  string description = 2;
+  string url = 3;
+  string requestParams = 4;
+  string requestHeader = 5;
+  string responseHeader = 6;
+  string method = 7;
+  uint64 id = 8;
+}
+message UpdateInterfaceInfoResp {
+  bool isUpdated = 1;
+}
+
+// delete 接口
+message DeleteInterfaceInfoReq {
+  uint64 id = 1;
+}
+message DeleteInterfaceInfoResp {
+  bool isDeleted = 1;
+}
+
+// get 接口
+message GetInterfaceInfoReq {
+  uint64 id = 1;
+}
+message GetInterfaceInfoResp {
+  string description = 1;
+  string url = 2;
+  string requestParams = 3;
+  string requestHeader = 4;
+  string responseHeader = 5;
+  uint32 status = 6;
+  string method = 7;
+  string createTime = 8;
+  string updateTime = 9;
+}
+
+// get 接口列表
+message PageListReq {
+  string keyword = 1;
+  uint64 current = 2;
+  uint64 pageSize = 3;
+}
+message PageListResp {
+  uint64 total = 1;
+  repeated InterfaceInfo records = 2;
+}
+
+// 接口上线
+message OnlineInterfaceInfoReq {
+  uint64 id = 1;
+  string authToken = 2;
+}
+message OnlineInterfaceInfoResp {
+  bool isOnline = 1;
+}
+
+// 接口下线
+message OfflineInterfaceInfoReq {
+  uint64 id = 1;
+  string authToken = 2;
+}
+message OfflineInterfaceInfoResp {
+  bool isOffline = 1;
+}
+
+// 在线接口调用
+message InvokeInterfaceInfoReq {
+  uint64 id = 1;
+  string requestParams = 2;
+  string authToken = 3;
+}
+message InvokeInterfaceInfoResp {
+  repeated google.protobuf.Any responseObject = 1;
+}
+
+service interfaceInfo {
+  rpc addInterfaceInfo(AddInterfaceInfoReq) returns(AddInterfaceInfoResp);
+  rpc updateInterfaceInfo(UpdateInterfaceInfoReq) returns(UpdateInterfaceInfoResp);
+  rpc deleteInterfaceInfo(DeleteInterfaceInfoReq) returns(DeleteInterfaceInfoResp);
+  rpc getInterfaceInfo(GetInterfaceInfoReq) returns(GetInterfaceInfoResp);
+  rpc getPageList(PageListReq) returns(PageListResp);
+  rpc onlineInterfaceInfo(OnlineInterfaceInfoReq) returns(OnlineInterfaceInfoResp);
+  rpc offlineInterfaceInfo(OfflineInterfaceInfoReq) returns(OfflineInterfaceInfoResp);
+  rpc invokeInterfaceInfo(InvokeInterfaceInfoReq) returns(InvokeInterfaceInfoResp);
+}
+
+
+// 在 rpc 目录下执行
+// goctl rpc protoc ./pb/admin.proto --go_out=. --go-grpc_out=. --zrpc_out=.

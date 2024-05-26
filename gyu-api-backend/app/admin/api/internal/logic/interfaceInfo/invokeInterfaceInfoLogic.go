@@ -6,7 +6,7 @@ import (
 	"github.com/GyuXiao/gyu-api-sdk/sdk/request"
 	"github.com/GyuXiao/gyu-api-sdk/sdk/response"
 	"github.com/zeromicro/go-zero/core/logc"
-	"gyu-api-backend/app/admin/api/internal/models"
+	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/xerr"
 	"strings"
