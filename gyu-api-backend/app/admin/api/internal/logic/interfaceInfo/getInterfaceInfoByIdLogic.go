@@ -2,7 +2,7 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/models"
+	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
@@ -25,20 +25,20 @@ func NewGetInterfaceInfoByIdLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *GetInterfaceInfoByIdLogic) GetInterfaceInfoById(req *types.GetInterfaceInfoReq) (resp *types.GetInterfaceInfoResp, err error) {
-	interfaceInfoLogic := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-	interfaceInfo, err := interfaceInfoLogic.SearchInterfaceInfoById(req.Id)
+	getInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.GetInterfaceInfo(l.ctx, &interfaceinfo.GetInterfaceInfoReq{Id: req.Id})
 	if err != nil {
 		return nil, err
 	}
+
 	return &types.GetInterfaceInfoResp{
-		Description:    interfaceInfo.Description,
-		Url:            interfaceInfo.Url,
-		RequestParams:  interfaceInfo.RequestParams,
-		RequestHeader:  interfaceInfo.RequestHeader,
-		ResponseHeader: interfaceInfo.ResponseHeader,
-		Status:         interfaceInfo.Status,
-		Method:         interfaceInfo.Method,
-		CreateTime:     interfaceInfo.CreateTime,
-		UpdateTime:     interfaceInfo.UpdateTime,
+		Description:    getInterfaceInfoResp.Description,
+		Url:            getInterfaceInfoResp.Url,
+		RequestParams:  getInterfaceInfoResp.RequestParams,
+		RequestHeader:  getInterfaceInfoResp.RequestHeader,
+		ResponseHeader: getInterfaceInfoResp.ResponseHeader,
+		Status:         uint8(getInterfaceInfoResp.Status),
+		Method:         getInterfaceInfoResp.Method,
+		CreateTime:     getInterfaceInfoResp.CreateTime,
+		UpdateTime:     getInterfaceInfoResp.UpdateTime,
 	}, nil
 }

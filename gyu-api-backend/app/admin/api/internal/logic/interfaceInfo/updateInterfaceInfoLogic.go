@@ -2,10 +2,9 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/models"
-
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
+	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -25,20 +24,22 @@ func NewUpdateInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *UpdateInterfaceInfoLogic) UpdateInterfaceInfo(req *types.UpdateInterfaceInfoReq) (resp *types.UpdateInterfaceInfoResp, err error) {
-	// todo：校验参数
-	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-	interfaceMap := map[string]interface{}{
-		"name":           req.Name,
-		"description":    req.Description,
-		"url":            req.Url,
-		"requestHeader":  req.RequestHeader,
-		"responseHeader": req.ResponseHeader,
-		"method":         req.Method,
-		"requestParams":  req.RequestParams,
-	}
-	err = interfaceInfoModel.UpdateInterfaceInfo(req.Id, interfaceMap)
+	// todo：补充校验参数逻辑
+	// todo: 管理员才能更新接口信息
+
+	updateInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.UpdateInterfaceInfo(l.ctx, &interfaceinfo.UpdateInterfaceInfoReq{
+		Name:           req.Name,
+		Description:    req.Description,
+		Url:            req.Url,
+		RequestHeader:  req.RequestHeader,
+		ResponseHeader: req.ResponseHeader,
+		Method:         req.Method,
+		RequestParams:  req.RequestParams,
+		Id:             req.Id,
+	})
 	if err != nil {
 		return nil, err
 	}
-	return &types.UpdateInterfaceInfoResp{IsUpdated: true}, nil
+
+	return &types.UpdateInterfaceInfoResp{IsUpdated: updateInterfaceInfoResp.IsUpdated}, nil
 }

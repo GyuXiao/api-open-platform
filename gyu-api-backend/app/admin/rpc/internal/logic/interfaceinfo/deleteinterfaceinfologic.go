@@ -2,6 +2,7 @@ package interfaceinfologic
 
 import (
 	"context"
+	"gyu-api-backend/app/admin/models"
 
 	"gyu-api-backend/app/admin/rpc/internal/svc"
 	"gyu-api-backend/app/admin/rpc/pb"
@@ -24,7 +25,10 @@ func NewDeleteInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *DeleteInterfaceInfoLogic) DeleteInterfaceInfo(in *pb.DeleteInterfaceInfoReq) (*pb.DeleteInterfaceInfoResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &pb.DeleteInterfaceInfoResp{}, nil
+	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
+	err := interfaceInfoModel.DeleteInterfaceInfo(in.Id)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.DeleteInterfaceInfoResp{IsDeleted: true}, nil
 }

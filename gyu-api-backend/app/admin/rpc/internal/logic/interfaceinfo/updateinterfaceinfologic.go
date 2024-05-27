@@ -2,6 +2,7 @@ package interfaceinfologic
 
 import (
 	"context"
+	"gyu-api-backend/app/admin/models"
 
 	"gyu-api-backend/app/admin/rpc/internal/svc"
 	"gyu-api-backend/app/admin/rpc/pb"
@@ -24,7 +25,20 @@ func NewUpdateInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *UpdateInterfaceInfoLogic) UpdateInterfaceInfo(in *pb.UpdateInterfaceInfoReq) (*pb.UpdateInterfaceInfoResp, error) {
-	// todo: add your logic here and delete this line
+	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
+	interfaceMap := map[string]interface{}{
+		"name":           in.Name,
+		"description":    in.Description,
+		"url":            in.Url,
+		"requestHeader":  in.RequestHeader,
+		"responseHeader": in.ResponseHeader,
+		"method":         in.Method,
+		"requestParams":  in.RequestParams,
+	}
+	err := interfaceInfoModel.UpdateInterfaceInfo(in.Id, interfaceMap)
+	if err != nil {
+		return nil, err
+	}
 
-	return &pb.UpdateInterfaceInfoResp{}, nil
+	return &pb.UpdateInterfaceInfoResp{IsUpdated: true}, nil
 }

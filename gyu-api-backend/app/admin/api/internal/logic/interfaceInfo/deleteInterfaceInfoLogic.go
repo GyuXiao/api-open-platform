@@ -2,10 +2,9 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/models"
-
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
+	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -25,10 +24,11 @@ func NewDeleteInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *DeleteInterfaceInfoLogic) DeleteInterfaceInfo(req *types.DeleteInterfaceInfoReq) (resp *types.DeleteInterfaceInfoResp, err error) {
-	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-	err = interfaceInfoModel.DeleteInterfaceInfo(req.Id)
+
+	deleteInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.DeleteInterfaceInfo(l.ctx, &interfaceinfo.DeleteInterfaceInfoReq{Id: req.Id})
 	if err != nil {
 		return nil, err
 	}
-	return &types.DeleteInterfaceInfoResp{IsDeleted: true}, nil
+
+	return &types.DeleteInterfaceInfoResp{IsDeleted: deleteInterfaceInfoResp.IsDeleted}, nil
 }

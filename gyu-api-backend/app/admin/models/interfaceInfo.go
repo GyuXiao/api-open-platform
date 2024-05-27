@@ -54,16 +54,7 @@ func (m *defaultInterfaceInfoModel) DeleteInterfaceInfo(id uint64) error {
 }
 
 func (m *defaultInterfaceInfoModel) UpdateInterfaceInfo(id uint64, interfaceInfoMap map[string]interface{}) error {
-	interfaceInfo := InterfaceInfoModel{
-		Name:           interfaceInfoMap["name"].(string),
-		Description:    interfaceInfoMap["description"].(string),
-		Url:            interfaceInfoMap["url"].(string),
-		RequestHeader:  interfaceInfoMap["requestHeader"].(string),
-		ResponseHeader: interfaceInfoMap["responseHeader"].(string),
-		Method:         interfaceInfoMap["method"].(string),
-		RequestParams:  interfaceInfoMap["requestParams"].(string),
-	}
-	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ?", id).Updates(interfaceInfo).Error
+	err := m.Table(constant.InterfaceInfoTableName).Model(&InterfaceInfoModel{}).Where("id = ? and isDelete = 0", id).Updates(interfaceInfoMap).Error
 	if err != nil {
 		return xerr.NewErrCode(xerr.UpdateInterfaceInfoError)
 	}

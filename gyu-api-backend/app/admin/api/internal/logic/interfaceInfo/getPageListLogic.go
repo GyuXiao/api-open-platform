@@ -2,12 +2,12 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/models"
+	"github.com/jinzhu/copier"
+	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
 
-	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -26,22 +26,26 @@ func NewGetPageListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPa
 }
 
 func (l *GetPageListLogic) GetPageList(req *types.PageListReq) (resp *types.PageListResp, err error) {
-	interfaceInfoLogic := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-	result, total, err := interfaceInfoLogic.FindListPage(req.Keyword, req.Current, req.PageSize)
+
+	interfaceListResp, err := l.svcCtx.InterfaceInfoRpc.GetPageList(l.ctx, &interfaceinfo.PageListReq{
+		Keyword:  req.Keyword,
+		Current:  req.Current,
+		PageSize: req.PageSize,
+	})
 	if err != nil {
 		return nil, err
 	}
-	if result == nil {
-		return nil, nil
-	}
-	var interfaceInfoList []types.InterfaceInfo
-	for _, interfaceInfo := range result {
-		tmp := types.InterfaceInfo{}
-		copier.Copy(&tmp, interfaceInfo)
-		interfaceInfoList = append(interfaceInfoList, tmp)
+
+	var list []types.InterfaceInfo
+	if len(interfaceListResp.Records) > 0 {
+		for _, record := range interfaceListResp.Records {
+			var tmp types.InterfaceInfo
+			_ = copier.Copy(&tmp, record)
+			list = append(list, tmp)
+		}
 	}
 	return &types.PageListResp{
-		Total:   uint64(total),
-		Records: interfaceInfoList,
+		Total:   interfaceListResp.Total,
+		Records: list,
 	}, nil
 }

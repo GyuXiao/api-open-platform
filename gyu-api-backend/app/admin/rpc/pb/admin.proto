@@ -4,8 +4,6 @@ option go_package = "./pb";
 
 package pb;
 
-import "google/protobuf/any.proto";
-
 // User 模块
 // model
 message User {
@@ -183,7 +181,7 @@ message InvokeInterfaceInfoReq {
   string authToken = 3;
 }
 message InvokeInterfaceInfoResp {
-  repeated google.protobuf.Any responseObject = 1;
+  map<string, string> responseObject = 1;
 }
 
 service interfaceInfo {
@@ -199,4 +197,4 @@ service interfaceInfo {
 
 
 // 在 rpc 目录下执行
-// goctl rpc protoc ./pb/admin.proto --go_out=. --go-grpc_out=. --zrpc_out=.
+// goctl rpc protoc ./pb/admin.proto --go_out=. --go-grpc_out=. --zrpc_out=. -m
