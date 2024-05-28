@@ -3,7 +3,6 @@ package interfaceInfo
 import (
 	"context"
 	"github.com/GyuXiao/gyu-api-sdk/sdk/response"
-	"github.com/duke-git/lancet/v2/maputil"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 	"gyu-api-backend/common/tools"
 	"strings"
@@ -39,9 +38,11 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(req *types.InvokeInterfac
 		return nil, err
 	}
 
-	var baseRsp response.BaseResponse
-	mp := tools.MapConvertStringToAny(invokeInterfaceInfoResp.ResponseObject)
-	_ = maputil.MapToStruct(mp, &baseRsp)
+	// 获取响应对象
+	respObj := invokeInterfaceInfoResp.ResponseObject
+	// 将 map[string]string 转换为 struct 对象
+	var baseRsp response.ErrorResponse
+	tools.MapConvertStruct(respObj, &baseRsp)
 
 	return &types.InvokeInterfaceInfoResp{ResponseObject: baseRsp}, nil
 }

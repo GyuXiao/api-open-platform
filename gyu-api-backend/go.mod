@@ -11,6 +11,7 @@ require (
 	github.com/go-playground/validator/v10 v10.14.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/jinzhu/copier v0.4.0
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/zeromicro/go-zero v1.6.3
 	golang.org/x/crypto v0.19.0

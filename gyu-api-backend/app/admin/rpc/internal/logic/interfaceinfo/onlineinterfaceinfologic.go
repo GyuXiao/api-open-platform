@@ -39,7 +39,7 @@ func NewOnlineInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 	}
 }
 
-// todo：待优化
+// todo：待用 SDK 发起请求那一部分，逻辑需要重新编写
 
 func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(in *pb.OnlineInterfaceInfoReq) (*pb.OnlineInterfaceInfoResp, error) {
 	// 0 通过 token 获取 redis 存储的 userRole，如果不是管理者，则不能执行上线操作
@@ -55,7 +55,6 @@ func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(in *pb.OnlineInterfaceInf
 	}
 
 	// 1 校验接口是否存在（通过 id 查找接口）
-	// 这个逻辑有待移到网关项目
 	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
 	_, err = interfaceInfoModel.SearchInterfaceInfoById(in.Id)
 	if err != nil {
@@ -73,7 +72,6 @@ func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(in *pb.OnlineInterfaceInf
 	userTest := user.NewUser("userTest1")
 	userJson, _ := json.Marshal(userTest)
 	baseReq := &request.BaseRequest{
-		// todo：这里的 URL 和 Method 都不应该写死
 		URL:    "http://127.0.0.1:8123/api/user",
 		Method: "POST",
 		Header: nil,

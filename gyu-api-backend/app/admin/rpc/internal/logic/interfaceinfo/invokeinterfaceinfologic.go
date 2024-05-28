@@ -6,7 +6,6 @@ import (
 	"github.com/GyuXiao/gyu-api-sdk/sdk/request"
 	"github.com/GyuXiao/gyu-api-sdk/sdk/response"
 	sdkService "github.com/GyuXiao/gyu-api-sdk/service/user"
-	"github.com/duke-git/lancet/v2/structs"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/core/logx"
 	"gyu-api-backend/app/admin/models"
@@ -73,8 +72,9 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(in *pb.InvokeInterfaceInf
 		logc.Infof(l.ctx, "向模拟接口发起请求错误: %v", err)
 		return nil, xerr.NewErrCode(xerr.SDKSendRequestError)
 	}
-	mp, _ := structs.ToMap(baseRsp)
-	respObj := tools.MapConvertAnyToString(mp)
 
-	return &pb.InvokeInterfaceInfoResp{ResponseObject: respObj}, nil
+	// 将 baseRsp.ErrorResponse 转换成 map[string]string
+	resultMp := tools.StructConvertMap(baseRsp)
+
+	return &pb.InvokeInterfaceInfoResp{ResponseObject: resultMp}, nil
 }
