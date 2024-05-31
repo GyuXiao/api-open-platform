@@ -14,6 +14,7 @@ import (
 	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/tools"
 	"gyu-api-backend/common/xerr"
+	"strconv"
 )
 
 type InvokeInterfaceInfoLogic struct {
@@ -60,10 +61,12 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(in *pb.InvokeInterfaceInf
 	if err != nil {
 		return nil, xerr.NewErrCode(xerr.SDKNewClientError)
 	}
+	itfId := strconv.Itoa(int(interfaceInfo.Id))
 	baseReq := &request.BaseRequest{
-		URL:    constant.GatewayHost + "/api/invoke",
-		Method: "POST",
+		URL:    constant.GatewayHost + constant.GatewayUrl,
+		Method: constant.PostMethod,
 		Header: nil,
+		ItfId:  itfId,
 		Body:   in.RequestParams,
 	}
 	baseRsp := &response.BaseResponse{}

@@ -59,15 +59,17 @@ const (
 // User
 
 const (
-	UserNotExistError   uint32 = 500001
-	UserExistError      uint32 = 500002
-	UserLoginError      uint32 = 500003
-	UserRegisterError   uint32 = 500004
-	UserPasswordError   uint32 = 500005
-	UserIdNotExistError uint32 = 500006
-	UserNotLoginError   uint32 = 500007
-	SearchUserError     uint32 = 500008
-	CreateUserError     uint32 = 500009
+	UserNotExistError          uint32 = 500001
+	UserExistError             uint32 = 500002
+	UserLoginError             uint32 = 500003
+	UserRegisterError          uint32 = 500004
+	UserPasswordError          uint32 = 500005
+	UserIdNotExistError        uint32 = 500006
+	UserNotLoginError          uint32 = 500007
+	SearchUserError            uint32 = 500008
+	CreateUserError            uint32 = 500009
+	SearchUserByAccessKeyError uint32 = 500010
+	AccessKeyNotExistError     uint32 = 500011
 )
 
 // InterfaceInfo

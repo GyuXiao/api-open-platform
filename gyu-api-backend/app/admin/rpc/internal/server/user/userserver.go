@@ -41,3 +41,8 @@ func (s *UserServer) Logout(ctx context.Context, in *pb.LogoutReq) (*pb.LogoutRe
 	l := userlogic.NewLogoutLogic(ctx, s.svcCtx)
 	return l.Logout(in)
 }
+
+func (s *UserServer) GetInvokeUser(ctx context.Context, in *pb.GetInvokeUserReq) (*pb.GetInvokeUserResp, error) {
+	l := userlogic.NewGetInvokeUserLogic(ctx, s.svcCtx)
+	return l.GetInvokeUser(in)
+}

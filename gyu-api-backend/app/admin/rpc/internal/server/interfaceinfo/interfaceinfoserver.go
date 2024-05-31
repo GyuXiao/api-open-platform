@@ -61,3 +61,8 @@ func (s *InterfaceInfoServer) InvokeInterfaceInfo(ctx context.Context, in *pb.In
 	l := interfaceinfologic.NewInvokeInterfaceInfoLogic(ctx, s.svcCtx)
 	return l.InvokeInterfaceInfo(in)
 }
+
+func (s *InterfaceInfoServer) InvokeInterfaceCount(ctx context.Context, in *pb.UpdateInvokeInterfaceCountReq) (*pb.UpdateInvokeInterfaceCountResp, error) {
+	l := interfaceinfologic.NewInvokeInterfaceCountLogic(ctx, s.svcCtx)
+	return l.InvokeInterfaceCount(in)
+}

@@ -22,8 +22,8 @@ func TargetUrlMiddleware() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(c.Request.Context(), time.Duration(constant.RequestTimeout)*time.Second)
 		defer cancel()
 
-		// todo: 这里的 targetUrl 应该是灵活的，不能写死，而是从外面传进来
-		targetURL := "http://127.0.0.1:8090/api/user"
+		interfaceInfo := global.InterfaceInfoResp
+		targetURL := interfaceInfo.Url
 		queryRaw := c.Request.URL.RawQuery
 		// 如果 query 不为空字符串，则将 query 添加到转发请求的 URL 中
 		if queryRaw != "" {

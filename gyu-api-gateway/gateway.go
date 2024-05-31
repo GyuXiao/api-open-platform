@@ -4,29 +4,26 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/zeromicro/go-zero/core/conf"
+	"gyu-api-gateway/config"
 	"gyu-api-gateway/routes"
 	"net/http"
 )
 
-var release string
-
-func init() {
-	flag.StringVar(&release, "release", "local", "release model, optional local/dev/prod")
-}
+var configFile = flag.String("f", "etc/gateway-local.yaml", "the config file")
 
 func main() {
 	flag.Parse()
 
-	//configFile := fmt.Sprintf("etc/gateway-demo-%s.yaml", release)
+	var c config.Config
+	conf.MustLoad(*configFile, &c)
 
 	r := gin.Default()
-
-	routes.Setup(r)
+	routes.Setup(r, c)
 
 	server := http.Server{
-		Addr:    fmt.Sprintf("%s:%d", "127.0.0.1", 8123),
+		Addr:    fmt.Sprintf("%s:%d", c.Server.Host, c.Server.Port),
 		Handler: r,
 	}
-
 	server.ListenAndServe()
 }

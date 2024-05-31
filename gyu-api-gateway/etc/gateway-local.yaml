@@ -1,26 +1,11 @@
 Server:
-  Name: gateway-demo
+  Name: gyu-api-gateway
   Host: 127.0.0.1
   Port: 8123
 
-Jwt:
-  Secret:
-  Expire:
+RpcConfig:
+  Target: 127.0.0.1:9001
 
-Log:
-  Dir:
-  Level:
-
-Mysql:
-  Host:
-  Port:
-  User:
-  Pwd:
-  Db:
-
-Redis:
-  Host:
-  Port:
-  User:
-  Pwd:
-  Db:
+Etcd:
+  Host: 127.0.0.1:2379
+  Key: admin-rpc

@@ -44,9 +44,11 @@ const (
 	AllowExposeHeaders = "Access-Control-Expose-Headers"
 	Headers            = "Content-Type, Content-Length, Origin, Access-Control-Allow-Origin, Access-Control-Allow-Headers"
 	Methods            = "GET, OPTIONS, POST, PATCH, PUT, DELETE"
+	PostMethod         = "POST"
 	True               = "true"
 )
 
 // 测试环境的网关 host
 
 const GatewayHost = "http://localhost:8123"
+const GatewayUrl = "/api/invoke"

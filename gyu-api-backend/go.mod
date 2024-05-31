@@ -3,7 +3,7 @@ module gyu-api-backend
 go 1.20
 
 require (
-	github.com/GyuXiao/gyu-api-sdk v0.0.4
+	github.com/GyuXiao/gyu-api-sdk v1.0.0
 	github.com/duke-git/lancet/v2 v2.3.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/locales v0.14.1

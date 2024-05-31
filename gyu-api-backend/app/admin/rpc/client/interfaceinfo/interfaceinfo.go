@@ -13,32 +13,36 @@ import (
 )
 
 type (
-	AddInterfaceInfoReq      = pb.AddInterfaceInfoReq
-	AddInterfaceInfoResp     = pb.AddInterfaceInfoResp
-	CurrentUserReq           = pb.CurrentUserReq
-	CurrentUserResp          = pb.CurrentUserResp
-	DeleteInterfaceInfoReq   = pb.DeleteInterfaceInfoReq
-	DeleteInterfaceInfoResp  = pb.DeleteInterfaceInfoResp
-	GetInterfaceInfoReq      = pb.GetInterfaceInfoReq
-	GetInterfaceInfoResp     = pb.GetInterfaceInfoResp
-	InterfaceInfo            = pb.InterfaceInfo
-	InvokeInterfaceInfoReq   = pb.InvokeInterfaceInfoReq
-	InvokeInterfaceInfoResp  = pb.InvokeInterfaceInfoResp
-	LoginReq                 = pb.LoginReq
-	LoginResp                = pb.LoginResp
-	LogoutReq                = pb.LogoutReq
-	LogoutResp               = pb.LogoutResp
-	OfflineInterfaceInfoReq  = pb.OfflineInterfaceInfoReq
-	OfflineInterfaceInfoResp = pb.OfflineInterfaceInfoResp
-	OnlineInterfaceInfoReq   = pb.OnlineInterfaceInfoReq
-	OnlineInterfaceInfoResp  = pb.OnlineInterfaceInfoResp
-	PageListReq              = pb.PageListReq
-	PageListResp             = pb.PageListResp
-	RegisterReq              = pb.RegisterReq
-	RegisterResp             = pb.RegisterResp
-	UpdateInterfaceInfoReq   = pb.UpdateInterfaceInfoReq
-	UpdateInterfaceInfoResp  = pb.UpdateInterfaceInfoResp
-	User                     = pb.User
+	AddInterfaceInfoReq            = pb.AddInterfaceInfoReq
+	AddInterfaceInfoResp           = pb.AddInterfaceInfoResp
+	CurrentUserReq                 = pb.CurrentUserReq
+	CurrentUserResp                = pb.CurrentUserResp
+	DeleteInterfaceInfoReq         = pb.DeleteInterfaceInfoReq
+	DeleteInterfaceInfoResp        = pb.DeleteInterfaceInfoResp
+	GetInterfaceInfoReq            = pb.GetInterfaceInfoReq
+	GetInterfaceInfoResp           = pb.GetInterfaceInfoResp
+	GetInvokeUserReq               = pb.GetInvokeUserReq
+	GetInvokeUserResp              = pb.GetInvokeUserResp
+	InterfaceInfo                  = pb.InterfaceInfo
+	InvokeInterfaceInfoReq         = pb.InvokeInterfaceInfoReq
+	InvokeInterfaceInfoResp        = pb.InvokeInterfaceInfoResp
+	LoginReq                       = pb.LoginReq
+	LoginResp                      = pb.LoginResp
+	LogoutReq                      = pb.LogoutReq
+	LogoutResp                     = pb.LogoutResp
+	OfflineInterfaceInfoReq        = pb.OfflineInterfaceInfoReq
+	OfflineInterfaceInfoResp       = pb.OfflineInterfaceInfoResp
+	OnlineInterfaceInfoReq         = pb.OnlineInterfaceInfoReq
+	OnlineInterfaceInfoResp        = pb.OnlineInterfaceInfoResp
+	PageListReq                    = pb.PageListReq
+	PageListResp                   = pb.PageListResp
+	RegisterReq                    = pb.RegisterReq
+	RegisterResp                   = pb.RegisterResp
+	UpdateInterfaceInfoReq         = pb.UpdateInterfaceInfoReq
+	UpdateInterfaceInfoResp        = pb.UpdateInterfaceInfoResp
+	UpdateInvokeInterfaceCountReq  = pb.UpdateInvokeInterfaceCountReq
+	UpdateInvokeInterfaceCountResp = pb.UpdateInvokeInterfaceCountResp
+	User                           = pb.User
 
 	InterfaceInfoZrpcClient interface {
 		AddInterfaceInfo(ctx context.Context, in *AddInterfaceInfoReq, opts ...grpc.CallOption) (*AddInterfaceInfoResp, error)
@@ -49,6 +53,7 @@ type (
 		OnlineInterfaceInfo(ctx context.Context, in *OnlineInterfaceInfoReq, opts ...grpc.CallOption) (*OnlineInterfaceInfoResp, error)
 		OfflineInterfaceInfo(ctx context.Context, in *OfflineInterfaceInfoReq, opts ...grpc.CallOption) (*OfflineInterfaceInfoResp, error)
 		InvokeInterfaceInfo(ctx context.Context, in *InvokeInterfaceInfoReq, opts ...grpc.CallOption) (*InvokeInterfaceInfoResp, error)
+		InvokeInterfaceCount(ctx context.Context, in *UpdateInvokeInterfaceCountReq, opts ...grpc.CallOption) (*UpdateInvokeInterfaceCountResp, error)
 	}
 
 	defaultInterfaceInfoZrpcClient struct {
@@ -100,4 +105,9 @@ func (m *defaultInterfaceInfoZrpcClient) OfflineInterfaceInfo(ctx context.Contex
 func (m *defaultInterfaceInfoZrpcClient) InvokeInterfaceInfo(ctx context.Context, in *InvokeInterfaceInfoReq, opts ...grpc.CallOption) (*InvokeInterfaceInfoResp, error) {
 	client := pb.NewInterfaceInfoClient(m.cli.Conn())
 	return client.InvokeInterfaceInfo(ctx, in, opts...)
+}
+
+func (m *defaultInterfaceInfoZrpcClient) InvokeInterfaceCount(ctx context.Context, in *UpdateInvokeInterfaceCountReq, opts ...grpc.CallOption) (*UpdateInvokeInterfaceCountResp, error) {
+	client := pb.NewInterfaceInfoClient(m.cli.Conn())
+	return client.InvokeInterfaceCount(ctx, in, opts...)
 }

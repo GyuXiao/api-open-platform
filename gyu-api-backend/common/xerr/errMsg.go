@@ -51,6 +51,8 @@ func init() {
 	mapCodMsg[UserPasswordError] = "用户密码错误"
 	mapCodMsg[UserIdNotExistError] = "UserId 不存在"
 	mapCodMsg[UserNotLoginError] = "用户当前状态并没有登陆"
+	mapCodMsg[SearchUserByAccessKeyError] = "通过 accessKey 检索用户信息错误"
+	mapCodMsg[AccessKeyNotExistError] = "accessKey 不存在"
 
 	// InterfaceInfo
 	mapCodMsg[AddInterfaceInfoError] = "添加接口信息错误"

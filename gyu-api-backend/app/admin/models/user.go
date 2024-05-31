@@ -12,6 +12,7 @@ import (
 type UserService interface {
 	CreateUser(map[string]interface{}) error
 	SearchUserByUsername(string) (*UserModel, error)
+	SearchUserByAccessKey(string) (*UserModel, error)
 }
 
 var userService UserService
@@ -49,5 +50,20 @@ func (m *defaultUserModel) SearchUserByUsername(username string) (*UserModel, er
 	default:
 		logc.Infof(ctx, "mysql search user by username err: %v", err)
 		return nil, xerr.NewErrCode(xerr.SearchUserError)
+	}
+}
+
+func (m *defaultUserModel) SearchUserByAccessKey(accessKey string) (*UserModel, error) {
+	user := UserModel{}
+	err := m.Table(constant.UserTableName).Where("accessKey = ? and isDelete = 0", accessKey).Take(&user).Error
+	switch {
+	case err == nil:
+		return &user, nil
+	case errors.Is(err, gorm.ErrRecordNotFound):
+		logc.Info(ctx, "mysql search user by accessKey not found")
+		return nil, xerr.NewErrCode(xerr.RecordNotFoundError)
+	default:
+		logc.Infof(ctx, "mysql search user by accessKey err: %v", err)
+		return nil, xerr.NewErrCode(xerr.SearchUserByAccessKeyError)
 	}
 }

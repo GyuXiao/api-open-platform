@@ -10,11 +10,6 @@ import (
 	"time"
 )
 
-// todo : ak 和 sk 不能在这里写死，后续也要改
-
-var AccessKey string = "gyu"
-var SecretKey string = "abcdefg"
-
 func FilterWithAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		headers := c.Request.Header
@@ -24,8 +19,10 @@ func FilterWithAuth() gin.HandlerFunc {
 		sign := headers.Get("Sign")
 		body := headers.Get("Body")
 
+		invokeUser := global.InvokeUserResp
+
 		// accessKey 校验
-		if accessKey != AccessKey {
+		if accessKey != invokeUser.AccessKey {
 			logx.Info(c.Request.Context(), "accessKey 错误, 权限校验未通过")
 			global.HandlerUnauthorized(c)
 			return
@@ -42,13 +39,13 @@ func FilterWithAuth() gin.HandlerFunc {
 		}
 
 		paramsMap := map[string]string{
-			"title0": AccessKey,
-			"title1": SecretKey,
+			"title0": invokeUser.AccessKey,
+			"title1": invokeUser.SecretKey,
 			"title2": nonce,
 			"title3": timestamp,
 			"title4": body,
 		}
-		signature := sdk.GenSign(paramsMap, SecretKey)
+		signature := sdk.GenSign(paramsMap, invokeUser.SecretKey)
 		// 签名校验
 		if signature != sign {
 			logx.Info(c.Request.Context(), "签名错误, 权限校验未通过")
@@ -57,7 +54,7 @@ func FilterWithAuth() gin.HandlerFunc {
 		}
 
 		signatureLog := logx.ContextWithFields(c.Request.Context(), logx.Field("isPass", true))
-		logc.Info(signatureLog, "gyu-api-gateway 统一鉴权-API权限验证")
+		logc.Info(signatureLog, "gyu-api-gateway 统一鉴权-API权限验证通过")
 
 		c.Next()
 	}

@@ -13,38 +13,43 @@ import (
 )
 
 type (
-	AddInterfaceInfoReq      = pb.AddInterfaceInfoReq
-	AddInterfaceInfoResp     = pb.AddInterfaceInfoResp
-	CurrentUserReq           = pb.CurrentUserReq
-	CurrentUserResp          = pb.CurrentUserResp
-	DeleteInterfaceInfoReq   = pb.DeleteInterfaceInfoReq
-	DeleteInterfaceInfoResp  = pb.DeleteInterfaceInfoResp
-	GetInterfaceInfoReq      = pb.GetInterfaceInfoReq
-	GetInterfaceInfoResp     = pb.GetInterfaceInfoResp
-	InterfaceInfo            = pb.InterfaceInfo
-	InvokeInterfaceInfoReq   = pb.InvokeInterfaceInfoReq
-	InvokeInterfaceInfoResp  = pb.InvokeInterfaceInfoResp
-	LoginReq                 = pb.LoginReq
-	LoginResp                = pb.LoginResp
-	LogoutReq                = pb.LogoutReq
-	LogoutResp               = pb.LogoutResp
-	OfflineInterfaceInfoReq  = pb.OfflineInterfaceInfoReq
-	OfflineInterfaceInfoResp = pb.OfflineInterfaceInfoResp
-	OnlineInterfaceInfoReq   = pb.OnlineInterfaceInfoReq
-	OnlineInterfaceInfoResp  = pb.OnlineInterfaceInfoResp
-	PageListReq              = pb.PageListReq
-	PageListResp             = pb.PageListResp
-	RegisterReq              = pb.RegisterReq
-	RegisterResp             = pb.RegisterResp
-	UpdateInterfaceInfoReq   = pb.UpdateInterfaceInfoReq
-	UpdateInterfaceInfoResp  = pb.UpdateInterfaceInfoResp
-	User                     = pb.User
+	AddInterfaceInfoReq            = pb.AddInterfaceInfoReq
+	AddInterfaceInfoResp           = pb.AddInterfaceInfoResp
+	CurrentUserReq                 = pb.CurrentUserReq
+	CurrentUserResp                = pb.CurrentUserResp
+	DeleteInterfaceInfoReq         = pb.DeleteInterfaceInfoReq
+	DeleteInterfaceInfoResp        = pb.DeleteInterfaceInfoResp
+	GetInterfaceInfoReq            = pb.GetInterfaceInfoReq
+	GetInterfaceInfoResp           = pb.GetInterfaceInfoResp
+	GetInvokeUserReq               = pb.GetInvokeUserReq
+	GetInvokeUserResp              = pb.GetInvokeUserResp
+	InterfaceInfo                  = pb.InterfaceInfo
+	InvokeInterfaceInfoReq         = pb.InvokeInterfaceInfoReq
+	InvokeInterfaceInfoResp        = pb.InvokeInterfaceInfoResp
+	LoginReq                       = pb.LoginReq
+	LoginResp                      = pb.LoginResp
+	LogoutReq                      = pb.LogoutReq
+	LogoutResp                     = pb.LogoutResp
+	OfflineInterfaceInfoReq        = pb.OfflineInterfaceInfoReq
+	OfflineInterfaceInfoResp       = pb.OfflineInterfaceInfoResp
+	OnlineInterfaceInfoReq         = pb.OnlineInterfaceInfoReq
+	OnlineInterfaceInfoResp        = pb.OnlineInterfaceInfoResp
+	PageListReq                    = pb.PageListReq
+	PageListResp                   = pb.PageListResp
+	RegisterReq                    = pb.RegisterReq
+	RegisterResp                   = pb.RegisterResp
+	UpdateInterfaceInfoReq         = pb.UpdateInterfaceInfoReq
+	UpdateInterfaceInfoResp        = pb.UpdateInterfaceInfoResp
+	UpdateInvokeInterfaceCountReq  = pb.UpdateInvokeInterfaceCountReq
+	UpdateInvokeInterfaceCountResp = pb.UpdateInvokeInterfaceCountResp
+	User                           = pb.User
 
 	UserZrpcClient interface {
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
 		Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error)
 		CurrentUser(ctx context.Context, in *CurrentUserReq, opts ...grpc.CallOption) (*CurrentUserResp, error)
 		Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error)
+		GetInvokeUser(ctx context.Context, in *GetInvokeUserReq, opts ...grpc.CallOption) (*GetInvokeUserResp, error)
 	}
 
 	defaultUserZrpcClient struct {
@@ -76,4 +81,9 @@ func (m *defaultUserZrpcClient) CurrentUser(ctx context.Context, in *CurrentUser
 func (m *defaultUserZrpcClient) Logout(ctx context.Context, in *LogoutReq, opts ...grpc.CallOption) (*LogoutResp, error) {
 	client := pb.NewUserClient(m.cli.Conn())
 	return client.Logout(ctx, in, opts...)
+}
+
+func (m *defaultUserZrpcClient) GetInvokeUser(ctx context.Context, in *GetInvokeUserReq, opts ...grpc.CallOption) (*GetInvokeUserResp, error) {
+	client := pb.NewUserClient(m.cli.Conn())
+	return client.GetInvokeUser(ctx, in, opts...)
 }
