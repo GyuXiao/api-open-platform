@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	analysis "gyu-api-backend/app/admin/api/internal/handler/analysis"
 	interfaceInfo "gyu-api-backend/app/admin/api/internal/handler/interfaceInfo"
 	user "gyu-api-backend/app/admin/api/internal/handler/user"
 	"gyu-api-backend/app/admin/api/internal/svc"
@@ -106,6 +107,18 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodPost,
 				Path:    "/interfaceInfo/invoke",
 				Handler: interfaceInfo.InvokeInterfaceInfoHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/gyu_api/v1"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/analysis/top/interfaceInfo",
+				Handler: analysis.GetTopNInterfaceInfoHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

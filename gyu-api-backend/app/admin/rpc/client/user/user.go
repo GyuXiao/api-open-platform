@@ -23,7 +23,10 @@ type (
 	GetInterfaceInfoResp           = pb.GetInterfaceInfoResp
 	GetInvokeUserReq               = pb.GetInvokeUserReq
 	GetInvokeUserResp              = pb.GetInvokeUserResp
+	GetTopNInvokeInterfaceInfoReq  = pb.GetTopNInvokeInterfaceInfoReq
+	GetTopNInvokeInterfaceInfoResp = pb.GetTopNInvokeInterfaceInfoResp
 	InterfaceInfo                  = pb.InterfaceInfo
+	InvokeInterfaceInfo            = pb.InvokeInterfaceInfo
 	InvokeInterfaceInfoReq         = pb.InvokeInterfaceInfoReq
 	InvokeInterfaceInfoResp        = pb.InvokeInterfaceInfoResp
 	LoginReq                       = pb.LoginReq

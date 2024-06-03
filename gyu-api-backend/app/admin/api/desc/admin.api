@@ -109,5 +109,23 @@ service admin {
 service admin {
 	@doc "invokeInterfaceInfo"
 	@handler InvokeInterfaceInfoHandler
-	post /interfaceInfo/invoke (invokeInterfaceInfoReq) returns (invokeInterfaceInfoResp)
+	post /interfaceInfo/invoke (InvokeInterfaceInfoReq) returns (InvokeInterfaceInfoResp)
 }
+
+@server(
+	prefix: gyu_api/v1
+	group: analysis
+	jwt: Auth
+)
+
+service admin {
+	@doc "getTopNInterfaceInfo"
+	@handler GetTopNInterfaceInfoHandler
+	get /analysis/top/interfaceInfo (GetTopNInterfaceInfoReq) returns (GetTopNInterfaceInfoResp)
+}
+
+// 在 api/desc 目录下执行
+// goctl api go -api admin.api -dir ../  --style=goZero
+
+// 代码格式化
+// goctl api format --dir admin.api

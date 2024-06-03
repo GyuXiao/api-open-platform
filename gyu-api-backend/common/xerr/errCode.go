@@ -74,13 +74,14 @@ const (
 
 // InterfaceInfo
 const (
-	SearchInterfaceInfoPageListError uint32 = 700001
-	SearchInterfaceInfoError         uint32 = 700002
-	AddInterfaceInfoError            uint32 = 700002
-	UpdateInterfaceInfoError         uint32 = 700003
-	DeleteInterfaceInfoError         uint32 = 700004
-	UpdateInterfaceInfoStatusError   uint32 = 700005
-	InterfaceInfoOfflineError        uint32 = 700006
+	SearchInterfaceInfoPageListError   uint32 = 700001
+	SearchInterfaceInfoError           uint32 = 700002
+	AddInterfaceInfoError              uint32 = 700002
+	UpdateInterfaceInfoError           uint32 = 700003
+	DeleteInterfaceInfoError           uint32 = 700004
+	UpdateInterfaceInfoStatusError     uint32 = 700005
+	InterfaceInfoOfflineError          uint32 = 700006
+	SearchTopNInvokeInterfaceInfoError uint32 = 700007
 )
 
 // SDK

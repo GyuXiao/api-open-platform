@@ -23,7 +23,10 @@ type (
 	GetInterfaceInfoResp           = pb.GetInterfaceInfoResp
 	GetInvokeUserReq               = pb.GetInvokeUserReq
 	GetInvokeUserResp              = pb.GetInvokeUserResp
+	GetTopNInvokeInterfaceInfoReq  = pb.GetTopNInvokeInterfaceInfoReq
+	GetTopNInvokeInterfaceInfoResp = pb.GetTopNInvokeInterfaceInfoResp
 	InterfaceInfo                  = pb.InterfaceInfo
+	InvokeInterfaceInfo            = pb.InvokeInterfaceInfo
 	InvokeInterfaceInfoReq         = pb.InvokeInterfaceInfoReq
 	InvokeInterfaceInfoResp        = pb.InvokeInterfaceInfoResp
 	LoginReq                       = pb.LoginReq
@@ -54,6 +57,7 @@ type (
 		OfflineInterfaceInfo(ctx context.Context, in *OfflineInterfaceInfoReq, opts ...grpc.CallOption) (*OfflineInterfaceInfoResp, error)
 		InvokeInterfaceInfo(ctx context.Context, in *InvokeInterfaceInfoReq, opts ...grpc.CallOption) (*InvokeInterfaceInfoResp, error)
 		InvokeInterfaceCount(ctx context.Context, in *UpdateInvokeInterfaceCountReq, opts ...grpc.CallOption) (*UpdateInvokeInterfaceCountResp, error)
+		GetTopNInvokeInterfaceInfo(ctx context.Context, in *GetTopNInvokeInterfaceInfoReq, opts ...grpc.CallOption) (*GetTopNInvokeInterfaceInfoResp, error)
 	}
 
 	defaultInterfaceInfoZrpcClient struct {
@@ -110,4 +114,9 @@ func (m *defaultInterfaceInfoZrpcClient) InvokeInterfaceInfo(ctx context.Context
 func (m *defaultInterfaceInfoZrpcClient) InvokeInterfaceCount(ctx context.Context, in *UpdateInvokeInterfaceCountReq, opts ...grpc.CallOption) (*UpdateInvokeInterfaceCountResp, error) {
 	client := pb.NewInterfaceInfoClient(m.cli.Conn())
 	return client.InvokeInterfaceCount(ctx, in, opts...)
+}
+
+func (m *defaultInterfaceInfoZrpcClient) GetTopNInvokeInterfaceInfo(ctx context.Context, in *GetTopNInvokeInterfaceInfoReq, opts ...grpc.CallOption) (*GetTopNInvokeInterfaceInfoResp, error) {
+	client := pb.NewInterfaceInfoClient(m.cli.Conn())
+	return client.GetTopNInvokeInterfaceInfo(ctx, in, opts...)
 }

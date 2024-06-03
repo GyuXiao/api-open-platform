@@ -20,7 +20,7 @@ declare namespace API {
     type BaseResponseListInterfaceInfoVO = {
         code?: number;
         data?: InterfaceInfoVO[];
-        message?: string;
+        msg?: string;
     };
 
     type BaseResponseListPost = {
@@ -69,6 +69,21 @@ declare namespace API {
         msg?: string;
         data?: PageInterfaceInfo;
     };
+
+    type BaseResponseTopNInvokeInterfaceInfo = {
+      code?: number;
+      msg?: string;
+      data?: TopNInvokeInterfaceInfo;
+    }
+
+    type TopNInvokeInterfaceInfo = {
+      records?: InvokeInterface[];
+    }
+
+    type InvokeInterface = {
+      name?: string;
+      totalNum?: number;
+    }
 
     type BaseResponsePagePost = {
         code?: number;

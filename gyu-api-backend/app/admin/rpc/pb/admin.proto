@@ -111,6 +111,11 @@ message InterfaceInfo {
   uint32 isDelete = 13;
 }
 
+message InvokeInterfaceInfo {
+  string interfaceInfoName = 1;
+  uint64 totalNum = 2;
+}
+
 // add 接口
 message AddInterfaceInfoReq {
   string name = 1;
@@ -179,7 +184,6 @@ message PageListResp {
 // 接口上线
 message OnlineInterfaceInfoReq {
   uint64 id = 1;
-  string authToken = 2;
 }
 message OnlineInterfaceInfoResp {
   bool isOnline = 1;
@@ -188,7 +192,6 @@ message OnlineInterfaceInfoResp {
 // 接口下线
 message OfflineInterfaceInfoReq {
   uint64 id = 1;
-  string authToken = 2;
 }
 message OfflineInterfaceInfoResp {
   bool isOffline = 1;
@@ -213,6 +216,14 @@ message UpdateInvokeInterfaceCountResp {
   bool isUpdated = 1;
 }
 
+// 查找调用次数 topN 的接口信息
+message GetTopNInvokeInterfaceInfoReq {
+  uint64 limit = 1;
+}
+message GetTopNInvokeInterfaceInfoResp {
+  repeated InvokeInterfaceInfo records = 1;
+}
+
 service interfaceInfo {
   rpc addInterfaceInfo(AddInterfaceInfoReq) returns(AddInterfaceInfoResp);
   rpc updateInterfaceInfo(UpdateInterfaceInfoReq) returns(UpdateInterfaceInfoResp);
@@ -223,6 +234,7 @@ service interfaceInfo {
   rpc offlineInterfaceInfo(OfflineInterfaceInfoReq) returns(OfflineInterfaceInfoResp);
   rpc invokeInterfaceInfo(InvokeInterfaceInfoReq) returns(InvokeInterfaceInfoResp);
   rpc invokeInterfaceCount(UpdateInvokeInterfaceCountReq) returns(UpdateInvokeInterfaceCountResp);
+  rpc getTopNInvokeInterfaceInfo(GetTopNInvokeInterfaceInfoReq) returns(GetTopNInvokeInterfaceInfoResp);
 }
 
 

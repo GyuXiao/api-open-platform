@@ -1,7 +1,8 @@
-package interfaceInfo
+package analysis
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
 	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
 	"gyu-api-backend/common/constant"
@@ -15,22 +16,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type OfflineInterfaceInfoLogic struct {
+type GetTopNInterfaceInfoLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewOfflineInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *OfflineInterfaceInfoLogic {
-	return &OfflineInterfaceInfoLogic{
+func NewGetTopNInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetTopNInterfaceInfoLogic {
+	return &GetTopNInterfaceInfoLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *OfflineInterfaceInfoLogic) OfflineInterfaceInfo(req *types.OfflineInterfaceInfoReq) (resp *types.OfflineInterfaceInfoResp, err error) {
-	// 0 通过 token 获取 redis 存储的 userRole，如果不是管理者，则不能执行下线操作
+func (l *GetTopNInterfaceInfoLogic) GetTopNInterfaceInfo(req *types.GetTopNInterfaceInfoReq) (resp *types.GetTopNInterfaceInfoResp, err error) {
 	token := strings.Split(req.Authorization, " ")[1]
 	tokenLogic := models.NewDefaultTokenModel(l.svcCtx.RedisClient)
 	result, err := tokenLogic.CheckTokenExist(token)
@@ -39,16 +39,26 @@ func (l *OfflineInterfaceInfoLogic) OfflineInterfaceInfo(req *types.OfflineInter
 	}
 	userRoleStr := result[1]
 	userRole, _ := strconv.Atoi(userRoleStr)
+	// 1,校验是否为管理员
 	if userRole != constant.AdminRole {
 		return nil, xerr.NewErrCode(xerr.PermissionDenied)
 	}
 
-	offlineInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.OfflineInterfaceInfo(l.ctx, &interfaceinfo.OfflineInterfaceInfoReq{
-		Id: req.Id,
+	// 2，获取 topN 的调用接口信息
+	topResp, err := l.svcCtx.InterfaceInfoRpc.GetTopNInvokeInterfaceInfo(l.ctx, &interfaceinfo.GetTopNInvokeInterfaceInfoReq{
+		Limit: req.Limit,
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.OfflineInterfaceInfoResp{IsOffline: offlineInterfaceInfoResp.IsOffline}, nil
+	var records []types.InvokeInterfaceInfo
+	if len(topResp.Records) > 0 {
+		for _, record := range topResp.Records {
+			var tmp types.InvokeInterfaceInfo
+			_ = copier.Copy(&tmp, record)
+			records = append(records, tmp)
+		}
+	}
+	return &types.GetTopNInterfaceInfoResp{Records: records}, nil
 }

@@ -62,6 +62,7 @@ func init() {
 	mapCodMsg[DeleteInterfaceInfoError] = "删除接口信息错误"
 	mapCodMsg[UpdateInterfaceInfoStatusError] = "更新接口状态错误"
 	mapCodMsg[InterfaceInfoOfflineError] = "接口未上线错误"
+	mapCodMsg[SearchTopNInvokeInterfaceInfoError] = "搜索调用次数 TopN 的接口信息错误"
 
 	// UserInterfaceInfo
 	mapCodMsg[CreateUserInterfaceInfoError] = "添加用户接口关系信息错误"

@@ -89,6 +89,11 @@ type InterfaceInfo {
 	IsDelete       uint8  `json:"isDelete"`
 }
 
+type InvokeInterfaceInfo {
+	InterfaceInfoName string `json:"name"`
+	TotalNum          uint64 `json:"totalNum"`
+}
+
 // 添加接口的请求参数和响应参数
 type (
 	AddInterfaceInfoReq {
@@ -186,18 +191,23 @@ type (
 
 // 在线调用接口
 type (
-	invokeInterfaceInfoReq {
+	InvokeInterfaceInfoReq {
 		Id            uint64 `json:"id"`
 		RequestParams string `json:"requestParams"`
 		Authorization string `header:"authorization"`
 	}
-	invokeInterfaceInfoResp {
+	InvokeInterfaceInfoResp {
 		ResponseObject interface{} `json:"responseObject"`
 	}
 )
 
-// 代码生成
-// goctl api go -api *.api -dir ../  --style=goZero
-
-// 代码格式化
-// goctl api format --dir admin.api
+// 获取 topN 的接口
+type (
+	GetTopNInterfaceInfoReq {
+		Limit         uint64 `form:"limit"`
+		Authorization string `header:"authorization"`
+	}
+	GetTopNInterfaceInfoResp {
+		Records []InvokeInterfaceInfo `json:"records"`
+	}
+)

@@ -44,3 +44,13 @@ type UserInterfaceInfoModel struct {
 	UpdateTime      string `gorm:"column:updateTime" json:"updateTime"`
 	IsDelete        uint8  `gorm:"column:isDelete" json:"isDelete"`
 }
+
+type UserInterfaceInfoTopResultModel struct {
+	InterfaceInfoId uint64 `gorm:"column:interfaceInfoId" json:"interfaceInfoId"`
+	TotalNum        uint64 `gorm:"column:totalNum" json:"totalNum"`
+}
+
+type InvokeInterfaceInfoModel struct {
+	InterfaceInfoName string `gorm:"column:name" json:"name"`
+	TotalNum          uint64 `gorm:"column:totalNum" json:"totalNum"`
+}

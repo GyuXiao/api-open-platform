@@ -13,6 +13,7 @@ type UserInterfaceInfoService interface {
 	CreateUserInterfaceInfo(map[string]interface{}) error
 	SearchUserInterfaceByUserIdAndInterfaceId(uint64, uint64) (*UserInterfaceInfoModel, error)
 	UpdateForInvokeSuccess(uint64, uint64) error
+	GetTopInvokeInterfaceInfoList(uint64) ([]*UserInterfaceInfoTopResultModel, error)
 }
 
 var userInterfaceInfoService UserInterfaceInfoService
@@ -72,4 +73,18 @@ func (m *defaultUserInterfaceInfoModel) UpdateForInvokeSuccess(userId uint64, in
 		return xerr.NewErrCode(xerr.InvokeSuccessUpdateError)
 	}
 	return nil
+}
+
+func (m *defaultUserInterfaceInfoModel) GetTopInvokeInterfaceInfoList(limit uint64) (res []*UserInterfaceInfoTopResultModel, err error) {
+	err = m.Table(constant.UserInterfaceInfoTableName).
+		Select("interfaceInfoId, SUM(totalNum) AS totalNum").
+		Group("interfaceInfoId").
+		Order("totalNum DESC").
+		Limit(int(limit)).
+		Find(&res).Error
+	if err != nil {
+		return nil, xerr.NewErrCode(xerr.SearchTopNInvokeInterfaceInfoError)
+	}
+
+	return res, nil
 }

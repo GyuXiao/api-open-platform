@@ -75,6 +75,11 @@ type InterfaceInfo struct {
 	IsDelete       uint8  `json:"isDelete"`
 }
 
+type InvokeInterfaceInfo struct {
+	InterfaceInfoName string `json:"name"`
+	TotalNum          uint64 `json:"totalNum"`
+}
+
 type AddInterfaceInfoReq struct {
 	Name           string `json:"name"`
 	Description    string `json:"description"`
@@ -166,4 +171,13 @@ type InvokeInterfaceInfoReq struct {
 
 type InvokeInterfaceInfoResp struct {
 	ResponseObject interface{} `json:"responseObject"`
+}
+
+type GetTopNInterfaceInfoReq struct {
+	Limit         uint64 `form:"limit"`
+	Authorization string `header:"authorization"`
+}
+
+type GetTopNInterfaceInfoResp struct {
+	Records []InvokeInterfaceInfo `json:"records"`
 }
