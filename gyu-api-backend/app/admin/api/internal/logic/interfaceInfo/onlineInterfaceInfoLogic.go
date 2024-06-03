@@ -38,13 +38,15 @@ func (l *OnlineInterfaceInfoLogic) OnlineInterfaceInfo(req *types.OnlineInterfac
 		return nil, err
 	}
 	userRoleStr := result[1]
+	username := result[2]
 	userRole, _ := strconv.Atoi(userRoleStr)
 	if userRole != constant.AdminRole {
 		return nil, xerr.NewErrCode(xerr.PermissionDenied)
 	}
 
 	onlineInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.OnlineInterfaceInfo(l.ctx, &interfaceinfo.OnlineInterfaceInfoReq{
-		Id: req.Id,
+		Id:       req.Id,
+		Username: username,
 	})
 	if err != nil {
 		return nil, err

@@ -184,6 +184,7 @@ message PageListResp {
 // 接口上线
 message OnlineInterfaceInfoReq {
   uint64 id = 1;
+  string Username = 2;
 }
 message OnlineInterfaceInfoResp {
   bool isOnline = 1;

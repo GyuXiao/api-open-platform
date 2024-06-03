@@ -5,6 +5,7 @@ import (
 	"github.com/GyuXiao/gyu-api-sdk/sdk/response"
 	"github.com/mitchellh/mapstructure"
 	"github.com/zeromicro/go-zero/core/logx"
+	"reflect"
 	"strconv"
 )
 
@@ -32,6 +33,9 @@ func StructConvertMap(obj *response.BaseResponse) map[string]string {
 	}
 	result := make(map[string]string, len(mp))
 	for k, v := range mp {
+		if reflect.TypeOf(v).Kind() == reflect.Map {
+			v = RemoveMapString(v)
+		}
 		result[k] = fmt.Sprintf("%v", v)
 	}
 	return result
