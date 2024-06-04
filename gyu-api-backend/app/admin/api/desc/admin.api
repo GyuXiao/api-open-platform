@@ -67,14 +67,6 @@ service admin {
 	@handler AddInterfaceInfoHandler
 	post /interfaceInfo/add (AddInterfaceInfoReq) returns (AddInterfaceInfoResp)
 
-	@doc "updateInterfaceInfo"
-	@handler UpdateInterfaceInfoHandler
-	post /interfaceInfo/update (UpdateInterfaceInfoReq) returns (UpdateInterfaceInfoResp)
-
-	@doc "deleteInterfaceInfo"
-	@handler DeleteInterfaceInfoHandler
-	post /interfaceInfo/delete (DeleteInterfaceInfoReq) returns (DeleteInterfaceInfoResp)
-
 	@doc "getInterfaceInfoById"
 	@handler GetInterfaceInfoByIdHandler
 	get /interfaceInfo/get (GetInterfaceInfoReq) returns (GetInterfaceInfoResp)
@@ -82,6 +74,22 @@ service admin {
 	@doc "getPageList"
 	@handler GetPageListHandler
 	get /interfaceInfo/list/page (PageListReq) returns (PageListResp)
+}
+
+@server(
+	prefix: gyu_api/v1
+	group: interfaceInfo
+	jwt: Auth
+)
+
+service admin {
+	@doc "updateInterfaceInfo"
+	@handler UpdateInterfaceInfoHandler
+	post /interfaceInfo/update (UpdateInterfaceInfoReq) returns (UpdateInterfaceInfoResp)
+
+	@doc "deleteInterfaceInfo"
+	@handler DeleteInterfaceInfoHandler
+	post /interfaceInfo/delete (DeleteInterfaceInfoReq) returns (DeleteInterfaceInfoResp)
 }
 
 @server(

@@ -5,6 +5,7 @@ import (
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
+	"gyu-api-backend/common/xerr"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -24,8 +25,12 @@ func NewAddInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *AddInterfaceInfoLogic) AddInterfaceInfo(req *types.AddInterfaceInfoReq) (resp *types.AddInterfaceInfoResp, err error) {
-	// todo: 补充参数校验逻辑
+	// 1,校验参数逻辑
+	if req.UserId == 0 || req.Name == "" {
+		return nil, xerr.NewErrCode(xerr.RequestParamError)
+	}
 
+	// 2,调用 rpc 模块的新增接口方法
 	addInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.AddInterfaceInfo(l.ctx, &interfaceinfo.AddInterfaceInfoReq{
 		Name:           req.Name,
 		Description:    req.Description,

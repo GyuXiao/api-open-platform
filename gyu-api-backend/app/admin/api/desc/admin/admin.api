@@ -121,6 +121,7 @@ type (
 		ResponseHeader string `json:"responseHeader"`
 		Method         string `json:"method"`
 		Id             uint64 `json:"id"`
+		Authorization  string `header:"authorization"`
 	}
 	UpdateInterfaceInfoResp {
 		IsUpdated bool `json:"isUpdated"`
@@ -129,7 +130,8 @@ type (
 
 type (
 	DeleteInterfaceInfoReq {
-		Id uint64 `json:"id"`
+		Id            uint64 `json:"id"`
+		Authorization string `header:"authorization"`
 	}
 	DeleteInterfaceInfoResp {
 		IsDeleted bool `json:"isDeleted"`

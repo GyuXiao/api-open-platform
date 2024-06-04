@@ -3,7 +3,7 @@ module gyu-api-gateway
 go 1.20
 
 require (
-	github.com/GyuXiao/gyu-api-sdk v0.0.4
+	github.com/GyuXiao/gyu-api-sdk v1.0.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/locales v0.14.1
 	github.com/go-playground/universal-translator v0.18.1

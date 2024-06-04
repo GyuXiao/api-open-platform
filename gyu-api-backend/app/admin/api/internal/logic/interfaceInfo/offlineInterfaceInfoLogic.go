@@ -2,11 +2,8 @@ package interfaceInfo
 
 import (
 	"context"
-	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
-	"gyu-api-backend/common/constant"
-	"gyu-api-backend/common/xerr"
-	"strconv"
+	"gyu-api-backend/common/userTools"
 	"strings"
 
 	"gyu-api-backend/app/admin/api/internal/svc"
@@ -32,15 +29,9 @@ func NewOfflineInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContex
 func (l *OfflineInterfaceInfoLogic) OfflineInterfaceInfo(req *types.OfflineInterfaceInfoReq) (resp *types.OfflineInterfaceInfoResp, err error) {
 	// 0 通过 token 获取 redis 存储的 userRole，如果不是管理者，则不能执行下线操作
 	token := strings.Split(req.Authorization, " ")[1]
-	tokenLogic := models.NewDefaultTokenModel(l.svcCtx.RedisClient)
-	result, err := tokenLogic.CheckTokenExist(token)
+	err = userTools.CheckUserIsAdminRole(l.svcCtx.RedisClient, token)
 	if err != nil {
 		return nil, err
-	}
-	userRoleStr := result[1]
-	userRole, _ := strconv.Atoi(userRoleStr)
-	if userRole != constant.AdminRole {
-		return nil, xerr.NewErrCode(xerr.PermissionDenied)
 	}
 
 	offlineInterfaceInfoResp, err := l.svcCtx.InterfaceInfoRpc.OfflineInterfaceInfo(l.ctx, &interfaceinfo.OfflineInterfaceInfoReq{

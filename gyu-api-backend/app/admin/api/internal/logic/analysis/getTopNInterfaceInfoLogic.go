@@ -3,11 +3,8 @@ package analysis
 import (
 	"context"
 	"github.com/jinzhu/copier"
-	"gyu-api-backend/app/admin/models"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
-	"gyu-api-backend/common/constant"
-	"gyu-api-backend/common/xerr"
-	"strconv"
+	"gyu-api-backend/common/userTools"
 	"strings"
 
 	"gyu-api-backend/app/admin/api/internal/svc"
@@ -31,17 +28,11 @@ func NewGetTopNInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContex
 }
 
 func (l *GetTopNInterfaceInfoLogic) GetTopNInterfaceInfo(req *types.GetTopNInterfaceInfoReq) (resp *types.GetTopNInterfaceInfoResp, err error) {
+	// 1,校验是否为管理员
 	token := strings.Split(req.Authorization, " ")[1]
-	tokenLogic := models.NewDefaultTokenModel(l.svcCtx.RedisClient)
-	result, err := tokenLogic.CheckTokenExist(token)
+	err = userTools.CheckUserIsAdminRole(l.svcCtx.RedisClient, token)
 	if err != nil {
 		return nil, err
-	}
-	userRoleStr := result[1]
-	userRole, _ := strconv.Atoi(userRoleStr)
-	// 1,校验是否为管理员
-	if userRole != constant.AdminRole {
-		return nil, xerr.NewErrCode(xerr.PermissionDenied)
 	}
 
 	// 2，获取 topN 的调用接口信息

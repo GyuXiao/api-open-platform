@@ -2,6 +2,8 @@ github.com/GyuXiao/gyu-api-sdk v0.0.4 h1:hh/eY5XVQ8sheL+LcoVIUE2rpDpfl2ET602VHs7
 github.com/GyuXiao/gyu-api-sdk v0.0.4/go.mod h1:nYfzF4pbqn1i8QBlDSF1pVkvqBatyO562ZzIOsf0LME=
 github.com/GyuXiao/gyu-api-sdk v1.0.0 h1:FGyItX//F705Okqp0h2o4dGMOzhc8Gv9JI79DqWQM/k=
 github.com/GyuXiao/gyu-api-sdk v1.0.0/go.mod h1:nYfzF4pbqn1i8QBlDSF1pVkvqBatyO562ZzIOsf0LME=
+github.com/GyuXiao/gyu-api-sdk v1.0.1 h1:pL59fdKZ869ygVZRLwcwZqDHa41e7mXKfA0Cl6OccvI=
+github.com/GyuXiao/gyu-api-sdk v1.0.1/go.mod h1:nYfzF4pbqn1i8QBlDSF1pVkvqBatyO562ZzIOsf0LME=
 github.com/alicebob/gopher-json v0.0.0-20230218143504-906a9b012302 h1:uvdUDbHQHO85qeSydJtItA4T55Pw6BtAejd0APRJOCE=
 github.com/alicebob/miniredis/v2 v2.31.1 h1:7XAt0uUg3DtwEKW5ZAGa+K7FZV2DdKQo5K/6TTnfX8Y=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=

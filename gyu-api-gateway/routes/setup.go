@@ -26,7 +26,7 @@ func Setup(r *gin.Engine, c config.Config) {
 			middleware.TargetUrlMiddleware(),
 
 			// 更新调用次数
-			middleware.UpdateInvokeInterfaceCount(c),
+			middleware.UpdateInvokeInterfaceCountMiddleware(c),
 		)
 	}
 	// 在管理者的校验

@@ -24,8 +24,6 @@ func NewOfflineInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContex
 	}
 }
 
-// 1，token 的身份校验应该放在 api 模块执行
-
 func (l *OfflineInterfaceInfoLogic) OfflineInterfaceInfo(in *pb.OfflineInterfaceInfoReq) (*pb.OfflineInterfaceInfoResp, error) {
 	// 1 校验接口是否存在（通过 id 查找接口）
 	interfaceInfoModel := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)

@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-func UpdateInvokeInterfaceCount(conf config.Config) gin.HandlerFunc {
+func UpdateInvokeInterfaceCountMiddleware(conf config.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		invokeUser := global.InvokeUserResp

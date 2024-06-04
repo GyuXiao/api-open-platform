@@ -61,16 +61,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: interfaceInfo.AddInterfaceInfoHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodPost,
-				Path:    "/interfaceInfo/update",
-				Handler: interfaceInfo.UpdateInterfaceInfoHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/interfaceInfo/delete",
-				Handler: interfaceInfo.DeleteInterfaceInfoHandler(serverCtx),
-			},
-			{
 				Method:  http.MethodGet,
 				Path:    "/interfaceInfo/get",
 				Handler: interfaceInfo.GetInterfaceInfoByIdHandler(serverCtx),
@@ -81,6 +71,23 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: interfaceInfo.GetPageListHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/gyu_api/v1"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/update",
+				Handler: interfaceInfo.UpdateInterfaceInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/interfaceInfo/delete",
+				Handler: interfaceInfo.DeleteInterfaceInfoHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/gyu_api/v1"),
 	)
 

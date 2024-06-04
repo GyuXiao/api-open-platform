@@ -104,6 +104,7 @@ type UpdateInterfaceInfoReq struct {
 	ResponseHeader string `json:"responseHeader"`
 	Method         string `json:"method"`
 	Id             uint64 `json:"id"`
+	Authorization  string `header:"authorization"`
 }
 
 type UpdateInterfaceInfoResp struct {
@@ -111,7 +112,8 @@ type UpdateInterfaceInfoResp struct {
 }
 
 type DeleteInterfaceInfoReq struct {
-	Id uint64 `json:"id"`
+	Id            uint64 `json:"id"`
+	Authorization string `header:"authorization"`
 }
 
 type DeleteInterfaceInfoResp struct {
