@@ -159,7 +159,7 @@ type (
 // 接口列表的请求参数和响应参数
 type (
 	PageListReq {
-		Keyword  string `form:"keyword,optional"`
+		Name  string `form:"name,optional"`
 		Current  uint64 `form:"current"`
 		PageSize uint64 `form:"pageSize"`
 	}

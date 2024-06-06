@@ -7,7 +7,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, Drawer, message } from 'antd';
+import {Button, Drawer, message, Modal, Space} from 'antd';
 import React, { useRef, useState } from 'react';
 import {
   addInterfaceInfoUsingPOST,
@@ -20,22 +20,21 @@ import {
 import CreateModel from "@/pages/Admin/InterfaceInfo/components/CreateModel";
 import UpdateModel from "@/pages/Admin/InterfaceInfo/components/UpdateModel";
 import {getInitialState} from "@/app";
+
+/**
+ * 接口管理页
+ * @constructor
+ */
 const TableList: React.FC = () => {
-  /**
-   * @en-US Pop-up window of new window
-   * @zh-CN 新建窗口的弹窗
-   *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
-  /**
-   * @en-US The pop-up window of the distribution update window
-   * @zh-CN 分布更新窗口的弹窗
-   * */
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
+
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
 
+  const [modal, contextHolder] = Modal.useModal();
   /**
    * @en-US Add node
    * @zh-CN 添加节点
@@ -113,6 +112,22 @@ const TableList: React.FC = () => {
       message.error('删除接口失败' + error.message);
       return false;
     }
+  };
+
+  /**
+   *  interface delete modal
+   * @zh-CN 接口删除的二次弹窗提醒
+   *
+   * @param record
+   */
+  const confirmDelete = (record: API.RuleListItem) => {
+    modal.confirm({
+      title: '删除接口',
+      content: '确认要删除嘛？请谨慎一点哦',
+      okText: '确认',
+      cancelText: '取消',
+      onOk:()=>{handleRemove(record)},
+    });
   };
 
   /**
@@ -208,36 +223,45 @@ const TableList: React.FC = () => {
       dataIndex: 'description',
       // 展示的文本为富文本剪辑器
       valueType: 'textarea',
+      hideInSearch: true,
     },
     {
       title: '请求方法',
       dataIndex: 'method',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: 'url',
       dataIndex: 'url',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: '请求参数',
       dataIndex: 'requestParams',
       valueType: 'jsonCode',
+      hideInSearch: true,
     },
-      {
+    {
       title: '请求头',
       dataIndex: 'requestHeader',
       valueType: 'jsonCode',
+      hideInSearch: true,
+      hideInTable: true,
     },
     {
       title: '响应头',
       dataIndex: 'responseHeader',
       valueType: 'jsonCode',
+      hideInSearch: true,
+      hideInTable: true,
     },
     {
       title: '状态',
       dataIndex: 'status',
       hideInForm: true,
+      hideInSearch: true,
       valueEnum: {
         0: {
           text: '关闭',
@@ -254,12 +278,14 @@ const TableList: React.FC = () => {
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: '更新时间',
       dataIndex: 'updateTime',
       valueType: 'dateTime',
       hideInForm: true,
+      hideInSearch: true,
     },
     {
       title: '操作',
@@ -298,14 +324,19 @@ const TableList: React.FC = () => {
             下线
           </Button>
         : null,
-        <Button
-          type="text"
-          danger
-          key="config"
-          onClick={() => handleRemove(record)}
-        >
-          删除
-        </Button>
+        <>
+          <Space>
+            <Button
+              type="text"
+              danger
+              key="config"
+              onClick={() => {confirmDelete(record)}}
+            >
+              删除
+            </Button>
+          </Space>
+          {contextHolder}
+        </>,
       ],
     },
   ];

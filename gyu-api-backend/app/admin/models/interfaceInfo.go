@@ -98,10 +98,9 @@ func (m *defaultInterfaceInfoModel) FindListPage(keyword string, pageNumber uint
 	if err != nil {
 		return nil, 0, xerr.NewErrCode(xerr.RecordCountError)
 	}
-	// 根据什么字段进行查找，还需要再思考一下（暂时选择 name 字段）
-	// 且如果设置索引的话，就不要使用左模糊查询了
+	// 根据 name 字段进行查找
 	offset := (pageNumber - 1) * pageSize
-	result := m.Table(constant.InterfaceInfoTableName).Where("name LIKE ? AND isDelete = 0", "%"+keyword+"%").Offset(int(offset)).Limit(int(pageSize)).Find(&interfaceInfoList)
+	result := m.Table(constant.InterfaceInfoTableName).Where("name LIKE ? AND isDelete = 0", keyword+"%").Offset(int(offset)).Limit(int(pageSize)).Find(&interfaceInfoList)
 	if result.Error != nil {
 		return nil, 0, xerr.NewErrCode(xerr.SearchInterfaceInfoPageListError)
 	}

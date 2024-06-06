@@ -137,7 +137,7 @@ type GetInterfaceInfoResp struct {
 }
 
 type PageListReq struct {
-	Keyword  string `form:"keyword,optional"`
+	Name     string `form:"name,optional"`
 	Current  uint64 `form:"current"`
 	PageSize uint64 `form:"pageSize"`
 }

@@ -16,7 +16,7 @@ const Index: React.FC = () => {
   // 总数
   const [total, setTotal] = useState<number>(0);
   // 定义异步加载数据的函数
-  const loadData = async (current = 1, pageSize = 5) => {
+  const loadData = async (current = 1, pageSize = 10) => {
     // 开始加载数据，设置 loading 状态为 true
     setLoading(true);
     try {
@@ -71,7 +71,7 @@ const Index: React.FC = () => {
             return '总数：' + total;
           },
           // 每页显示条数
-          pageSize: 5,
+          pageSize: 10,
           // 总数，从状态中获取
           total,
           // 切换页面触发的回调函数

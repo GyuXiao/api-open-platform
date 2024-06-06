@@ -28,7 +28,7 @@ func NewGetPageListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetPa
 func (l *GetPageListLogic) GetPageList(req *types.PageListReq) (resp *types.PageListResp, err error) {
 
 	interfaceListResp, err := l.svcCtx.InterfaceInfoRpc.GetPageList(l.ctx, &interfaceinfo.PageListReq{
-		Keyword:  req.Keyword,
+		Keyword:  req.Name,
 		Current:  req.Current,
 		PageSize: req.PageSize,
 	})
