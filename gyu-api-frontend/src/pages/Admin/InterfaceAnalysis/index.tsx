@@ -65,7 +65,7 @@ const InterfaceAnalysis: React.FC = () => {
         emphasis: {
           label: {
             show: true,
-            fontSize: 15,
+            fontSize: 20,
             fontWeight: 'bold',
           },
         },
@@ -88,15 +88,21 @@ const InterfaceAnalysis: React.FC = () => {
       >
         <b>TopN : </b>
         <Input
-          style={{ width: 200 }}
+          style={{ width: 300 }}
           type="number"
-          placeholder="Enter TopN value"
+          placeholder="最多可以查询 top 5 调用次数的接口"
+          defaultValue={3}
+          max={5}
           value={topN}
           onChange={(e) => setTopN(e.target.value)}
         />
       </div>
       {/* 使用 ReactECharts 组件，传入图表配置 */}
       <ReactECharts
+        style={{
+          height: '80vh',
+          margin: 'center'
+        }}
         loadingOption={{
           showLoading: loading,
         }}

@@ -206,7 +206,7 @@ type (
 // 获取 topN 的接口
 type (
 	GetTopNInterfaceInfoReq {
-		Limit         uint64 `form:"limit"`
+		Limit         uint64 `form:"limit,optional"`
 		Authorization string `header:"authorization"`
 	}
 	GetTopNInterfaceInfoResp {

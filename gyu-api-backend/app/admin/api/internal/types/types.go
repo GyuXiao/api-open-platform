@@ -176,7 +176,7 @@ type InvokeInterfaceInfoResp struct {
 }
 
 type GetTopNInterfaceInfoReq struct {
-	Limit         uint64 `form:"limit"`
+	Limit         uint64 `form:"limit,optional"`
 	Authorization string `header:"authorization"`
 }
 

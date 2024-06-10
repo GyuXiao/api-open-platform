@@ -21,6 +21,10 @@ const (
 	Offline = 0
 )
 
+const (
+	DefaultTopNLimit = 3
+)
+
 // Jwt
 
 const KeyJwtUserId = "jwtUserId"

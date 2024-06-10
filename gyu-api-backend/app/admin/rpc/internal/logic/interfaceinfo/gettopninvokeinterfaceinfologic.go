@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/jinzhu/copier"
 	"gyu-api-backend/app/admin/models"
+	"gyu-api-backend/common/constant"
 
 	"gyu-api-backend/app/admin/rpc/internal/svc"
 	"gyu-api-backend/app/admin/rpc/pb"
@@ -28,6 +29,9 @@ func NewGetTopNInvokeInterfaceInfoLogic(ctx context.Context, svcCtx *svc.Service
 func (l *GetTopNInvokeInterfaceInfoLogic) GetTopNInvokeInterfaceInfo(in *pb.GetTopNInvokeInterfaceInfoReq) (*pb.GetTopNInvokeInterfaceInfoResp, error) {
 	// 1，先查询到 topN 的 []{interfaceInfoId, totalNum}
 	userInterfaceInfoModel := models.NewDefaultUserInterfaceInfoModel(l.svcCtx.DBEngin)
+	if in.Limit == 0 {
+		in.Limit = constant.DefaultTopNLimit
+	}
 	results, err := userInterfaceInfoModel.GetTopInvokeInterfaceInfoList(in.Limit)
 	if err != nil {
 		return nil, err
@@ -41,7 +45,7 @@ func (l *GetTopNInvokeInterfaceInfoLogic) GetTopNInvokeInterfaceInfo(in *pb.GetT
 		total := res.TotalNum
 		interfaceInfo, err := interfaceInfoLogic.SearchInterfaceInfoById(interfaceInfoId)
 		if err != nil {
-			return nil, err
+			continue
 		}
 
 		list = append(list, &models.InvokeInterfaceInfoModel{

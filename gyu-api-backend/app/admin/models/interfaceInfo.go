@@ -33,10 +33,10 @@ func (m *defaultInterfaceInfoModel) SearchInterfaceInfoById(id uint64) (*Interfa
 	case err == nil:
 		return &interfaceInfo, nil
 	case errors.Is(err, gorm.ErrRecordNotFound):
-		logc.Info(ctx, "mysql search interfaceInfo by name not found")
+		logc.Info(ctx, "mysql search interfaceInfo by id not found")
 		return nil, xerr.NewErrCode(xerr.RecordNotFoundError)
 	default:
-		logc.Infof(ctx, "mysql search interfaceInfo by name err: ", err)
+		logc.Infof(ctx, "mysql search interfaceInfo by id err: ", err)
 		return nil, xerr.NewErrCode(xerr.SearchInterfaceInfoError)
 	}
 }

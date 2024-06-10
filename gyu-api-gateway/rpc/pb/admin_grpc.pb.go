@@ -257,15 +257,16 @@ var User_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	InterfaceInfo_AddInterfaceInfo_FullMethodName     = "/pb.interfaceInfo/addInterfaceInfo"
-	InterfaceInfo_UpdateInterfaceInfo_FullMethodName  = "/pb.interfaceInfo/updateInterfaceInfo"
-	InterfaceInfo_DeleteInterfaceInfo_FullMethodName  = "/pb.interfaceInfo/deleteInterfaceInfo"
-	InterfaceInfo_GetInterfaceInfo_FullMethodName     = "/pb.interfaceInfo/getInterfaceInfo"
-	InterfaceInfo_GetPageList_FullMethodName          = "/pb.interfaceInfo/getPageList"
-	InterfaceInfo_OnlineInterfaceInfo_FullMethodName  = "/pb.interfaceInfo/onlineInterfaceInfo"
-	InterfaceInfo_OfflineInterfaceInfo_FullMethodName = "/pb.interfaceInfo/offlineInterfaceInfo"
-	InterfaceInfo_InvokeInterfaceInfo_FullMethodName  = "/pb.interfaceInfo/invokeInterfaceInfo"
-	InterfaceInfo_InvokeInterfaceCount_FullMethodName = "/pb.interfaceInfo/invokeInterfaceCount"
+	InterfaceInfo_AddInterfaceInfo_FullMethodName           = "/pb.interfaceInfo/addInterfaceInfo"
+	InterfaceInfo_UpdateInterfaceInfo_FullMethodName        = "/pb.interfaceInfo/updateInterfaceInfo"
+	InterfaceInfo_DeleteInterfaceInfo_FullMethodName        = "/pb.interfaceInfo/deleteInterfaceInfo"
+	InterfaceInfo_GetInterfaceInfo_FullMethodName           = "/pb.interfaceInfo/getInterfaceInfo"
+	InterfaceInfo_GetPageList_FullMethodName                = "/pb.interfaceInfo/getPageList"
+	InterfaceInfo_OnlineInterfaceInfo_FullMethodName        = "/pb.interfaceInfo/onlineInterfaceInfo"
+	InterfaceInfo_OfflineInterfaceInfo_FullMethodName       = "/pb.interfaceInfo/offlineInterfaceInfo"
+	InterfaceInfo_InvokeInterfaceInfo_FullMethodName        = "/pb.interfaceInfo/invokeInterfaceInfo"
+	InterfaceInfo_InvokeInterfaceCount_FullMethodName       = "/pb.interfaceInfo/invokeInterfaceCount"
+	InterfaceInfo_GetTopNInvokeInterfaceInfo_FullMethodName = "/pb.interfaceInfo/getTopNInvokeInterfaceInfo"
 )
 
 // InterfaceInfoClient is the client API for InterfaceInfo service.
@@ -281,6 +282,7 @@ type InterfaceInfoClient interface {
 	OfflineInterfaceInfo(ctx context.Context, in *OfflineInterfaceInfoReq, opts ...grpc.CallOption) (*OfflineInterfaceInfoResp, error)
 	InvokeInterfaceInfo(ctx context.Context, in *InvokeInterfaceInfoReq, opts ...grpc.CallOption) (*InvokeInterfaceInfoResp, error)
 	InvokeInterfaceCount(ctx context.Context, in *UpdateInvokeInterfaceCountReq, opts ...grpc.CallOption) (*UpdateInvokeInterfaceCountResp, error)
+	GetTopNInvokeInterfaceInfo(ctx context.Context, in *GetTopNInvokeInterfaceInfoReq, opts ...grpc.CallOption) (*GetTopNInvokeInterfaceInfoResp, error)
 }
 
 type interfaceInfoClient struct {
@@ -372,6 +374,15 @@ func (c *interfaceInfoClient) InvokeInterfaceCount(ctx context.Context, in *Upda
 	return out, nil
 }
 
+func (c *interfaceInfoClient) GetTopNInvokeInterfaceInfo(ctx context.Context, in *GetTopNInvokeInterfaceInfoReq, opts ...grpc.CallOption) (*GetTopNInvokeInterfaceInfoResp, error) {
+	out := new(GetTopNInvokeInterfaceInfoResp)
+	err := c.cc.Invoke(ctx, InterfaceInfo_GetTopNInvokeInterfaceInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InterfaceInfoServer is the server API for InterfaceInfo service.
 // All implementations must embed UnimplementedInterfaceInfoServer
 // for forward compatibility
@@ -385,6 +396,7 @@ type InterfaceInfoServer interface {
 	OfflineInterfaceInfo(context.Context, *OfflineInterfaceInfoReq) (*OfflineInterfaceInfoResp, error)
 	InvokeInterfaceInfo(context.Context, *InvokeInterfaceInfoReq) (*InvokeInterfaceInfoResp, error)
 	InvokeInterfaceCount(context.Context, *UpdateInvokeInterfaceCountReq) (*UpdateInvokeInterfaceCountResp, error)
+	GetTopNInvokeInterfaceInfo(context.Context, *GetTopNInvokeInterfaceInfoReq) (*GetTopNInvokeInterfaceInfoResp, error)
 	mustEmbedUnimplementedInterfaceInfoServer()
 }
 
@@ -418,6 +430,9 @@ func (UnimplementedInterfaceInfoServer) InvokeInterfaceInfo(context.Context, *In
 }
 func (UnimplementedInterfaceInfoServer) InvokeInterfaceCount(context.Context, *UpdateInvokeInterfaceCountReq) (*UpdateInvokeInterfaceCountResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InvokeInterfaceCount not implemented")
+}
+func (UnimplementedInterfaceInfoServer) GetTopNInvokeInterfaceInfo(context.Context, *GetTopNInvokeInterfaceInfoReq) (*GetTopNInvokeInterfaceInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopNInvokeInterfaceInfo not implemented")
 }
 func (UnimplementedInterfaceInfoServer) mustEmbedUnimplementedInterfaceInfoServer() {}
 
@@ -594,6 +609,24 @@ func _InterfaceInfo_InvokeInterfaceCount_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InterfaceInfo_GetTopNInvokeInterfaceInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTopNInvokeInterfaceInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InterfaceInfoServer).GetTopNInvokeInterfaceInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InterfaceInfo_GetTopNInvokeInterfaceInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InterfaceInfoServer).GetTopNInvokeInterfaceInfo(ctx, req.(*GetTopNInvokeInterfaceInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InterfaceInfo_ServiceDesc is the grpc.ServiceDesc for InterfaceInfo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -636,6 +669,10 @@ var InterfaceInfo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "invokeInterfaceCount",
 			Handler:    _InterfaceInfo_InvokeInterfaceCount_Handler,
+		},
+		{
+			MethodName: "getTopNInvokeInterfaceInfo",
+			Handler:    _InterfaceInfo_GetTopNInvokeInterfaceInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
