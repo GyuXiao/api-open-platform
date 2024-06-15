@@ -27,7 +27,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
 	// 校验参数
-	if req.Username == "" || req.Password == "" || len(req.Username) < 6 || len(req.Password) < 8 {
+	if req.Username == constant.BlankString || req.Password == constant.BlankString || len(req.Username) < constant.UsernameMinLen || len(req.Password) < constant.PasswordMinLen {
 		return nil, xerr.NewErrCodeMsg(xerr.RequestParamError, "用户名或密码错误")
 	}
 	_, err = regexp.MatchString(constant.PatternStr, req.Username)

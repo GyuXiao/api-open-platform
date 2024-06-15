@@ -82,11 +82,11 @@ type InvokeInterfaceInfo struct {
 
 type AddInterfaceInfoReq struct {
 	Name           string `json:"name"`
-	Description    string `json:"description"`
+	Description    string `json:"description,optional"`
 	Url            string `json:"url"`
-	RequestParams  string `json:"requestParams"`
-	RequestHeader  string `json:"requestHeader"`
-	ResponseHeader string `json:"responseHeader"`
+	RequestParams  string `json:"requestParams,optional"`
+	RequestHeader  string `json:"requestHeader,optional"`
+	ResponseHeader string `json:"responseHeader,optional"`
 	Method         string `json:"method"`
 	UserId         uint64 `json:"userId"`
 }
@@ -167,7 +167,7 @@ type OfflineInterfaceInfoResp struct {
 
 type InvokeInterfaceInfoReq struct {
 	Id            uint64 `json:"id"`
-	RequestParams string `json:"requestParams"`
+	RequestParams string `json:"requestParams,optional"`
 	Authorization string `header:"authorization"`
 }
 

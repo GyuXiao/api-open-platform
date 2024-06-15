@@ -11,8 +11,10 @@ const PatternStr = "/[`~!@#$%^&*()_\\-+=<>?:\"{}|,.\\/;'\\\\[\\]·~！@#￥%…�
 const Salt = "gyu"
 
 const (
-	MemberRole = 0
-	AdminRole  = 1
+	MemberRole     = 0
+	AdminRole      = 1
+	UsernameMinLen = 6
+	PasswordMinLen = 8
 )
 
 // InterfaceInfoStatus
@@ -23,6 +25,8 @@ const (
 
 const (
 	DefaultTopNLimit = 3
+	BlankString      = ""
+	BlankInt         = 0
 )
 
 // Jwt

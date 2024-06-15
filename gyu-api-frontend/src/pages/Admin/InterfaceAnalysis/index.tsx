@@ -23,7 +23,7 @@ const InterfaceAnalysis: React.FC = () => {
       }
     } catch (error: any) {
       // 请求失败时提示错误信息
-      message.error('请求失败，' + error.message);
+      message.error('请求失败，' + error.response.data.msg);
     }
 
     setLoading(false);
@@ -33,7 +33,7 @@ const InterfaceAnalysis: React.FC = () => {
     loadData();
   }, [topN]);
 
-  const chartData = data.map((item) => {
+  const chartData = data?.map((item) => {
     return {
       value: item.totalNum,
       name: item.name,

@@ -29,7 +29,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.RegisterResp, err error) {
 	// 校验参数
-	if req.Username == "" || req.Password == "" || len(req.Username) < 6 || len(req.Password) < 8 || req.Password != req.ConfirmPassword {
+	if req.Username == constant.BlankString || req.Password == constant.BlankString || len(req.Username) < constant.UsernameMinLen || len(req.Password) < constant.PasswordMinLen || req.Password != req.ConfirmPassword {
 		return nil, xerr.NewErrCodeMsg(xerr.RequestParamError, "用户名或密码错误")
 	}
 	_, err = regexp.MatchString(constant.PatternStr, req.Username)

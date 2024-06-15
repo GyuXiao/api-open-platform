@@ -1,5 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
+import type { PopconfirmProps } from 'antd';
 import {
   FooterToolbar,
   PageContainer,
@@ -7,7 +8,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import {Button, Drawer, message, Modal, Space} from 'antd';
+import {Button, Drawer, message, Popconfirm} from 'antd';
 import React, { useRef, useState } from 'react';
 import {
   addInterfaceInfoUsingPOST,
@@ -34,7 +35,6 @@ const TableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
 
-  const [modal, contextHolder] = Modal.useModal();
   /**
    * @en-US Add node
    * @zh-CN 添加节点
@@ -57,7 +57,7 @@ const TableList: React.FC = () => {
     } catch (error: any) {
       hide();
       // 否则提示'创建失败' + 报错信息
-      message.error('添加接口失败: ' + error.message);
+      message.error('添加接口失败: ' + error.response.data.msg);
       return false;
     }
   };
@@ -84,7 +84,7 @@ const TableList: React.FC = () => {
       return true;
     } catch (error: any) {
       hide();
-      message.error('修改接口失败' + error.message);
+      message.error('修改接口失败' + error.response.data.msg);
       return false;
     }
   };
@@ -109,26 +109,16 @@ const TableList: React.FC = () => {
       return true;
     } catch (error: any) {
       hide();
-      message.error('删除接口失败' + error.message);
+      message.error('删除接口失败' + error.response.data.msg);
       return false;
     }
   };
 
-  /**
-   *  interface delete modal
-   * @zh-CN 接口删除的二次弹窗提醒
-   *
-   * @param record
-   */
-  const confirmDelete = (record: API.RuleListItem) => {
-    modal.confirm({
-      title: '删除接口',
-      content: '确认要删除嘛？请谨慎一点哦',
-      okText: '确认',
-      cancelText: '取消',
-      onOk:()=>{handleRemove(record)},
-    });
+  const confirm: (record: API.RuleListItem) => void = (record: API.RuleListItem) => {
+    handleRemove(record)
   };
+
+  const cancel:PopconfirmProps['onCancel'] = () => {};
 
   /**
    *  interface online
@@ -157,7 +147,7 @@ const TableList: React.FC = () => {
     } catch (error: any) {
       hide();
       // 显示操作失败的错误提示信息
-      message.error('操作失败，' + error.message);
+      message.error('操作失败，' + error.response.data.msg);
       // 返回false表示发布失败
       return false;
     }
@@ -190,7 +180,7 @@ const TableList: React.FC = () => {
     } catch (error: any) {
       hide();
       // 显示操作失败的错误提示信息
-      message.error('操作失败，' + error.message);
+      message.error('操作失败，' + error.response.data.msg);
       // 返回false表示下线失败
       return false;
     }
@@ -224,18 +214,36 @@ const TableList: React.FC = () => {
       // 展示的文本为富文本剪辑器
       valueType: 'textarea',
       hideInSearch: true,
+      formItemProps: {
+        rules: [{
+          max: 100,
+          message:'接口描述的长度不能大于 100',
+        }]
+      }
     },
     {
       title: '请求方法',
       dataIndex: 'method',
       valueType: 'text',
       hideInSearch: true,
+      formItemProps: {
+        rules: [{
+          required: true,
+          message:'请求方法不能为空',
+        }]
+      }
     },
     {
       title: 'url',
       dataIndex: 'url',
       valueType: 'text',
       hideInSearch: true,
+      formItemProps: {
+        rules: [{
+          required: true,
+          message:'Url 不能为空',
+        }]
+      }
     },
     {
       title: '请求参数',
@@ -324,19 +332,24 @@ const TableList: React.FC = () => {
             下线
           </Button>
         : null,
-        <>
-          <Space>
-            <Button
-              type="text"
-              danger
-              key="config"
-              onClick={() => {confirmDelete(record)}}
-            >
-              删除
-            </Button>
-          </Space>
-          {contextHolder}
-        </>,
+        <Popconfirm
+          key="popConfirm"
+          title="删除接口"
+          description="确定删除接口嘛？请谨慎操作"
+          onConfirm={() => confirm(record)}
+          onCancel={cancel}
+          okText="确认"
+          cancelText="取消"
+          getPopupContainer={(node) => node.parentElement}
+        >
+          <Button
+            type="text"
+            danger
+            key="config"
+          >
+            删除
+          </Button>
+        </Popconfirm>,
       ],
     },
   ];

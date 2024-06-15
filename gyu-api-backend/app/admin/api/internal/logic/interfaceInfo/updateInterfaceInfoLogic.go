@@ -5,6 +5,7 @@ import (
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
+	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/userTools"
 	"gyu-api-backend/common/xerr"
 	"strings"
@@ -28,7 +29,7 @@ func NewUpdateInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext
 
 func (l *UpdateInterfaceInfoLogic) UpdateInterfaceInfo(req *types.UpdateInterfaceInfoReq) (resp *types.UpdateInterfaceInfoResp, err error) {
 	// 1,校验参数逻辑
-	if req.Id == 0 || req.Name == "" {
+	if req.Id == constant.BlankInt || req.Name == constant.BlankString {
 		return nil, xerr.NewErrCode(xerr.RequestParamError)
 	}
 

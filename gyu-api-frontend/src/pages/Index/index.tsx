@@ -32,7 +32,7 @@ const Index: React.FC = () => {
       // 捕获请求失败的错误信息
     } catch (error: any) {
       // 请求失败时提示错误信息
-      message.error('请求失败，' + error.message);
+      message.error('请求失败，' + error.response.data.msg);
     }
     // 数据加载成功或失败后，设置 loading 状态为 false
     setLoading(false);

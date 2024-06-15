@@ -8,6 +8,7 @@ import (
 	userServer "gyu-api-backend/app/admin/rpc/internal/server/user"
 	"gyu-api-backend/app/admin/rpc/internal/svc"
 	"gyu-api-backend/app/admin/rpc/pb"
+	"gyu-api-backend/common/interceptor/rpcserver"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -35,6 +36,10 @@ func main() {
 			reflection.Register(grpcServer)
 		}
 	})
+
+	// rpc log
+	s.AddUnaryInterceptors(rpcserver.LoggerInterceptor)
+
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)

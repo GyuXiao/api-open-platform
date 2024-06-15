@@ -5,6 +5,7 @@ import (
 	"gyu-api-backend/app/admin/api/internal/svc"
 	"gyu-api-backend/app/admin/api/internal/types"
 	"gyu-api-backend/app/admin/rpc/client/interfaceinfo"
+	"gyu-api-backend/common/constant"
 	"gyu-api-backend/common/xerr"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -26,7 +27,7 @@ func NewAddInterfaceInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 
 func (l *AddInterfaceInfoLogic) AddInterfaceInfo(req *types.AddInterfaceInfoReq) (resp *types.AddInterfaceInfoResp, err error) {
 	// 1,校验参数逻辑
-	if req.UserId == 0 || req.Name == "" {
+	if req.UserId == constant.BlankInt || req.Name == constant.BlankString {
 		return nil, xerr.NewErrCode(xerr.RequestParamError)
 	}
 

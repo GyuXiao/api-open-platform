@@ -36,7 +36,7 @@ const Index: React.FC = () => {
       setData(res.data);
     } catch (error: any) {
       // 请求失败处理
-      message.error('请求失败，' + error.message);
+      message.error('请求失败，' + error.response.data.msg);
     }
     // 请求完成，设置 loading 状态为 false，表示请求结束，可以停止加载状态的显示
     setLoading(false);
@@ -60,14 +60,14 @@ const Index: React.FC = () => {
         id: Number(params.id),
         ...values,
       });
-      const responseObject = res.data?.responseObject
+      const responseObject = res.data?.responseObject;
       if (responseObject && responseObject.code === 200) {
-        const invokeData = responseObject.data
-        setInvokeRes(invokeData)
+        const invokeData = responseObject.data;
+        setInvokeRes(invokeData);
       }
       message.success('请求成功');
     } catch (error: any) {
-      message.error('操作失败，' + error.message);
+      message.error('操作失败，' + error.response.data.msg);
     }
     setInvokeLoading(false)
   };
