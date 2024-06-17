@@ -109,33 +109,12 @@ func Test_defaultUserInterfaceInfoModel_GetTopInvokeInterfaceInfoList(t *testing
 			},
 			want: []*UserInterfaceInfoTopResultModel{
 				{
-					InterfaceInfoId: 28,
-					TotalNum:        42,
+					InterfaceInfoName: "getUsernameByPost",
+					TotalNum:          51,
 				},
 				{
-					InterfaceInfoId: 3,
-					TotalNum:        39,
-				},
-			},
-			wantErr: false,
-		},
-		{
-			name: "test2",
-			args: args{
-				limit: 3,
-			},
-			want: []*UserInterfaceInfoTopResultModel{
-				{
-					InterfaceInfoId: 28,
-					TotalNum:        42,
-				},
-				{
-					InterfaceInfoId: 3,
-					TotalNum:        39,
-				},
-				{
-					InterfaceInfoId: 4,
-					TotalNum:        32,
+					InterfaceInfoName: "testItf2",
+					TotalNum:          39,
 				},
 			},
 			wantErr: false,

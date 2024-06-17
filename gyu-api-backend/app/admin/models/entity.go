@@ -46,8 +46,8 @@ type UserInterfaceInfoModel struct {
 }
 
 type UserInterfaceInfoTopResultModel struct {
-	InterfaceInfoId uint64 `gorm:"column:interfaceInfoId" json:"interfaceInfoId"`
-	TotalNum        uint64 `gorm:"column:totalNum" json:"totalNum"`
+	TotalNum          uint64 `gorm:"column:totalNum" json:"totalNum"`
+	InterfaceInfoName string `gorm:"column:name" json:"name"`
 }
 
 type InvokeInterfaceInfoModel struct {

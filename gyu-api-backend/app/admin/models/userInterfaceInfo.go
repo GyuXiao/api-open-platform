@@ -76,12 +76,19 @@ func (m *defaultUserInterfaceInfoModel) UpdateForInvokeSuccess(userId uint64, in
 }
 
 func (m *defaultUserInterfaceInfoModel) GetTopInvokeInterfaceInfoList(limit uint64) (res []*UserInterfaceInfoTopResultModel, err error) {
-	err = m.Table(constant.UserInterfaceInfoTableName).
+	// 先查到 interfaceId 和 totalNum
+	query := m.Table(constant.UserInterfaceInfoTableName).
 		Select("interfaceInfoId, SUM(totalNum) AS totalNum").
 		Group("interfaceInfoId").
 		Order("totalNum DESC").
-		Limit(int(limit)).
-		Find(&res).Error
+		Limit(int(limit))
+	// 联表 + 子查询
+	// 根据 interfaceId 查到 name
+	err = m.Table("(?) AS a", query).
+		Select("a.totalNum AS totalNum, b.name AS name").
+		Joins("LEFT JOIN interfaceInfo AS b ON a.interfaceInfoId = id").
+		Where("b.isDelete = 0").
+		Scan(&res).Error
 	if err != nil {
 		return nil, xerr.NewErrCode(xerr.SearchTopNInvokeInterfaceInfoError)
 	}

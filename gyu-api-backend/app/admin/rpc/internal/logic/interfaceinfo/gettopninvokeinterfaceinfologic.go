@@ -27,7 +27,6 @@ func NewGetTopNInvokeInterfaceInfoLogic(ctx context.Context, svcCtx *svc.Service
 }
 
 func (l *GetTopNInvokeInterfaceInfoLogic) GetTopNInvokeInterfaceInfo(in *pb.GetTopNInvokeInterfaceInfoReq) (*pb.GetTopNInvokeInterfaceInfoResp, error) {
-	// 1，先查询到 topN 的 []{interfaceInfoId, totalNum}
 	userInterfaceInfoModel := models.NewDefaultUserInterfaceInfoModel(l.svcCtx.DBEngin)
 	if in.Limit == 0 {
 		in.Limit = constant.DefaultTopNLimit
@@ -36,26 +35,9 @@ func (l *GetTopNInvokeInterfaceInfoLogic) GetTopNInvokeInterfaceInfo(in *pb.GetT
 	if err != nil {
 		return nil, err
 	}
-	interfaceInfoLogic := models.NewDefaultInterfaceInfoModel(l.svcCtx.DBEngin)
-
-	// 2，根据 interfaceInfoId 查询到 interfaceInfoName
-	var list []*models.InvokeInterfaceInfoModel
-	for _, res := range results {
-		interfaceInfoId := res.InterfaceInfoId
-		total := res.TotalNum
-		interfaceInfo, err := interfaceInfoLogic.SearchInterfaceInfoById(interfaceInfoId)
-		if err != nil {
-			continue
-		}
-
-		list = append(list, &models.InvokeInterfaceInfoModel{
-			InterfaceInfoName: interfaceInfo.Name,
-			TotalNum:          total,
-		})
-	}
 
 	var records []*pb.InvokeInterfaceInfo
-	for _, itf := range list {
+	for _, itf := range results {
 		tmp := &pb.InvokeInterfaceInfo{}
 		_ = copier.Copy(tmp, itf)
 		records = append(records, tmp)
