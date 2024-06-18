@@ -13,4 +13,8 @@ type Config struct {
 		Host string
 		Key  string
 	}
+	RateLimit struct {
+		Request    float64
+		BucketSize int
+	}
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/core/logx"
+	"gyu-api-gateway/constant"
 	"gyu-api-gateway/utils"
 	"time"
 )
@@ -19,7 +20,7 @@ func LogFormatMiddleware() gin.HandlerFunc {
 		if err != nil {
 			logc.Error(c.Request.Context(), "生成请求唯一标识失败："+err.Error())
 		}
-		c.Writer.Header().Set("X-Request-ID", requestId.String())
+		c.Set(constant.UniqueSessionID, requestId.String())
 
 		// 请求来源域名
 		domain, err := utils.GetDomainFromReferer(c.Request.Referer())

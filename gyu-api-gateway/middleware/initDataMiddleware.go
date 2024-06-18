@@ -22,7 +22,8 @@ func InitDataMiddleware(conf config.Config) gin.HandlerFunc {
 			AccessKey: accessKey,
 		})
 		if err != nil || global.InvokeUserResp == nil {
-			global.HandlerServerInternalError(c)
+			logc.Errorf(c.Request.Context(), "InvokeUserResp is nil or err is %v", err)
+			global.HandlerUnauthorized(c)
 			c.Abort()
 			return
 		}
@@ -30,7 +31,7 @@ func InitDataMiddleware(conf config.Config) gin.HandlerFunc {
 		// 通过 interfaceId 拿到 interface 对象
 		interfaceInfoId := c.Request.Header.Get("itfId")
 		if interfaceInfoId == "" {
-			logc.Errorf(c.Request.Context(), "interfaceInfoId is empty")
+			logc.Error(c.Request.Context(), "interfaceInfoId is empty")
 			global.HandlerServerInternalError(c)
 			return
 		}

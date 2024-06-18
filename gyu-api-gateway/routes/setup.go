@@ -10,13 +10,17 @@ func Setup(r *gin.Engine, c config.Config) {
 
 	// 请求日志
 	r.Use(middleware.LogFormatMiddleware())
+
 	// 黑白名单
 	r.Use(middleware.FilterWithAccessControlInWhiteIP())
 
+	// ip 限流
+	r.Use(middleware.RateLimiterMiddleware(c))
+
+	// 路由转发
 	apiGroup := r.Group("/api/invoke")
 	{
 		apiGroup.Any("/*path",
-			// 一系列的中间件操作，比如 统一鉴权，接口验证，路由转发，调用次数统计 等等
 			middleware.InitDataMiddleware(c),
 
 			// 用户鉴权（ak sk）

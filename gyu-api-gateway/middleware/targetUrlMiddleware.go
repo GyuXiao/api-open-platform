@@ -39,8 +39,14 @@ func TargetUrlMiddleware() gin.HandlerFunc {
 			return
 		}
 		req = req.WithContext(ctx)
-		// todo：后续可能还需要设置一些请求头信息（流量染色），待添加
-		// 。。。
+
+		// 流量染色
+		id, isExist := c.Get(constant.UniqueSessionID)
+		if !isExist {
+			global.HandlerInvokeError(c)
+			return
+		}
+		req.Header.Set(constant.FromId, constant.Gateway+"-"+id.(string))
 
 		// 发起请求
 		resp, err := utils.DoRequest(req)

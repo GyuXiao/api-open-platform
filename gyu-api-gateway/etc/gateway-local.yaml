@@ -9,3 +9,8 @@ RpcConfig:
 Etcd:
   Host: 127.0.0.1:2379
   Key: admin-rpc
+
+
+RateLimit:
+  Request: 10
+  BucketSize: 5

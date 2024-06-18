@@ -28,3 +28,8 @@ func HandlerUnauthorized(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"code": http.StatusUnauthorized, "msg": "鉴权未通过"})
 	c.Abort()
 }
+
+func HandlerExceedLimit(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"code": http.StatusTooManyRequests, "msg": "rate limit exceed"})
+	c.Abort()
+}

@@ -14,3 +14,10 @@ const (
 const JSON = "json"
 
 const RequestTimeout = 5
+
+// 唯一会话 id
+
+const UniqueSessionID = "uni-session-id"
+
+const FromId = "from_id"
+const Gateway = "gyu-api-gateway"
