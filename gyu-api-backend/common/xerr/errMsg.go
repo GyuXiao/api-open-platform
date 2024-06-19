@@ -68,6 +68,7 @@ func init() {
 	mapCodMsg[CreateUserInterfaceInfoError] = "添加用户接口关系信息错误"
 	mapCodMsg[SearchUserInterfaceInfoError] = "查询用户接口关系信息错误"
 	mapCodMsg[InvokeSuccessUpdateError] = "用户接口调用成功更新次数统计错误"
+	mapCodMsg[InvokeInterfaceLeftNumNonPositiveError] = "用户的剩余接口调用次数不大于0"
 
 	// SDK
 	mapCodMsg[SDKNewClientError] = "SDK 创建客户端错误"

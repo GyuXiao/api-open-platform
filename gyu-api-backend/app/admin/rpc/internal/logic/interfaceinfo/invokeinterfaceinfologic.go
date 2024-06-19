@@ -55,6 +55,19 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(in *pb.InvokeInterfaceInf
 		return nil, err
 	}
 
+	// 根据 userId 和 interfaceInfoId 查询该用户的接口剩余调用次数
+	// 如果剩余剩余调用次数 <= 0，则不能发起请求调用接口
+	userIdStr := userInfo[constant.KeyUserId]
+	userId, _ := strconv.Atoi(userIdStr)
+	userInterfaceInfoModel := models.NewDefaultUserInterfaceInfoModel(l.svcCtx.DBEngin)
+	userItf, err := userInterfaceInfoModel.SearchUserInterfaceByUserIdAndInterfaceId(uint64(userId), interfaceInfo.Id)
+	if err != nil {
+		return nil, err
+	}
+	if userItf != nil && userItf.LeftNum <= 0 {
+		return nil, xerr.NewErrCode(xerr.InvokeInterfaceLeftNumNonPositiveError)
+	}
+
 	// 3 再通过 ak 和 sk，调用 sdk 发起请求
 	config := sdk.NewConfig(user.AccessKey, user.SecretKey)
 	clt, err := client.NewClient(config)
@@ -63,6 +76,7 @@ func (l *InvokeInterfaceInfoLogic) InvokeInterfaceInfo(in *pb.InvokeInterfaceInf
 	}
 	itfId := strconv.Itoa(int(interfaceInfo.Id))
 	baseReq := &request.BaseRequest{
+		// 统一由后端项目向网关发起请求
 		URL:    constant.GatewayHost + constant.GatewayUrl,
 		Method: constant.PostMethod,
 		Header: nil,

@@ -93,9 +93,10 @@ const (
 // UserInterfaceInfo
 
 const (
-	CreateUserInterfaceInfoError uint32 = 900001
-	SearchUserInterfaceInfoError uint32 = 900002
-	InvokeSuccessUpdateError     uint32 = 900003
+	CreateUserInterfaceInfoError           uint32 = 900001
+	SearchUserInterfaceInfoError           uint32 = 900002
+	InvokeSuccessUpdateError               uint32 = 900003
+	InvokeInterfaceLeftNumNonPositiveError uint32 = 900004
 )
 
 // JSON
