@@ -21,7 +21,7 @@ react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框�
 
 ## 代码架构
 
-![整体框架预览](https://b0hbck89csa.feishu.cn/wiki/OUYTwTYqZiY8WQkhhMvcwpjlnbe?from=from_copylink)
+[整体框架预览](https://b0hbck89csa.feishu.cn/wiki/OUYTwTYqZiY8WQkhhMvcwpjlnbe?from=from_copylink)
 
 本项目分为 5 个子项目：
 - gyu-api-frontend：前端项目，提供给用户注册，登陆，浏览接口，调用接口的业务功能；
@@ -31,4 +31,4 @@ react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框�
 - gyu-api-interface：提供模拟 API 接口（属于第三方项目）。
 
 
-## 代码运行
+## 项目运行预览
