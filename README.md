@@ -1,7 +1,7 @@
 # api-open-platform
 
 ## 项目介绍
-一个简洁而不简单的面向开发者的 API 开放平台，提供 API 接口供开发者调用。  
+一个简洁而不简单的 API 开放平台，提供 API 接口供开发者调用。  
 
 ## 项目实现的功能
 本平台分别向三类用户提供相应的功能：
@@ -32,3 +32,4 @@ react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框�
 
 
 ## 项目运行预览
+[项目运行展示](https://b0hbck89csa.feishu.cn/docx/MiNTd7Ew7oXK6dxAcflcd0jynzg?from=from_copylink)
