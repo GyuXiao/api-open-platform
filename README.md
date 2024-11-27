@@ -1,7 +1,7 @@
 # api-open-platform
 
 ## 项目介绍
-一个简洁而不简单的 API 开放平台，提供 API 接口供开发者调用。  
+一个简洁而不简单的 api 开放平台，为开发者提供 api 接口进行在线测试、调用。  
 
 ## 项目实现的功能
 本平台分别向三类用户提供相应的功能：
@@ -11,7 +11,7 @@
 
 ## 技术选型
 ### 前端
-react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框架
+react + Ant Design pro 脚手架 + Ant Design Pro components 组件库 + Umi 框架
 ### 后端
 - 语言方面：go 语言 + go-zero 框架 + gRPC + gin + gorm
 - 数据库：MySQL + Redis
@@ -21,7 +21,7 @@ react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框�
 
 ## 代码架构
 
-[整体框架预览](https://b0hbck89csa.feishu.cn/wiki/OUYTwTYqZiY8WQkhhMvcwpjlnbe?from=from_copylink)
+![整体框架预览](./doc/img/Snipaste_2024-11-27_12-52-53.png)
 
 本项目分为 5 个子项目：
 - gyu-api-frontend：前端项目，提供给用户注册，登陆，浏览接口，调用接口的业务功能；
@@ -32,4 +32,13 @@ react + Ant Design pro 脚手架 + Ant Design Procomponents 组件库 + Umi 框�
 
 
 ## 项目运行预览
-[项目运行展示](https://b0hbck89csa.feishu.cn/docx/MiNTd7Ew7oXK6dxAcflcd0jynzg?from=from_copylink)
+用户登陆注册
+![登陆注册页](./doc/img/Snipaste_2024-11-27_13-32-37.png)
+用户浏览 api 列表
+![接口列表页](./doc/img/Snipaste_2024-11-27_13-31-55.png)
+用户浏览 api 详情，或者在线调用
+![接口详情页](./doc/img/Snipaste_2024-11-27_13-33-08.png)
+管理员的 api 管理
+![接口管理页](./doc/img/Snipaste_2024-11-27_13-33-23.png)
+管理员的 api 分析
+![接口分析页](./doc/img/Snipaste_2024-11-27_13-33-42.png)
